@@ -32,16 +32,7 @@
                 <div class="step-label"><i class="ci-card"></i>Payment</div></a><a class="step-item" href="checkout-review.html">
                 <div class="step-progress"><span class="step-count">5</span></div>
                 <div class="step-label"><i class="ci-check-circle"></i>Review</div></a></div>
-            <!-- Autor info-->
-            {{!-- <div class="d-sm-flex justify-content-between align-items-center bg-secondary p-4 rounded-3 mb-grid-gutter">
-              <div class="d-flex align-items-center">
-                <div class="img-thumbnail rounded-circle position-relative flex-shrink-0"><span class="badge bg-warning position-absolute end-0 mt-n2" data-bs-toggle="tooltip" title="Reward points">384</span><img class="rounded-circle" src="img/shop/account/avatar.jpg" width="90" alt="Susan Gardner"></div>
-                <div class="ps-3">
-                  <h3 class="fs-base mb-0">Susan Gardner</h3><span class="text-accent fs-sm">s.gardner@example.com</span>
-                </div>
-              </div><a class="btn btn-light btn-sm btn-shadow mt-3 mt-sm-0" href="account-profile.html"><i class="ci-edit me-2"></i>Edit profile</a>
-            </div> --}}
-
+           
                 
               <h2 class="h6 pb-3 mb-2">Choose payment method</h2>
             <div class="accordion mb-2" id="payment-method">
@@ -89,7 +80,7 @@
                            <label class="form-check-label ms-2" for="paypal">You will be redirected to
                                 PayPal website to complete your purchase
                                 securely</label>
-                        {{!-- <a class="btn btn-primary" href="/payment-gateway" role="button">Pay Now</a> --}}
+                        
                         </div>
                       </div>
                    
@@ -112,64 +103,9 @@
             </div>
 
             <h6 class="mb-3 py-3 border-bottom">Choose address</h6>
-            {{!-- <div class="accordion mb-2" id="payment-method">
-                          <div class="accordion-item">
-                <h3 class="accordion-header"><a class="accordion-button collapsed" href="#pointss" data-bs-toggle="collapse"><i class="ci-gift me-2"></i>Saved Address</a></h3>
-                <div class="accordion-collapse collapse" id="pointss" data-bs-parent="#payment-method">
-                  <div class="accordion-body">
-                    <div class="form-check d-block">
-                  
-                      
-                      <input class="form-check-input" type="radio" >
-                      <label class="form-check-label" for="use_points">Please check for confirming cash on delivery</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              </div> --}}
+            
               <div class="text-sm-end pt-4"><a class="btn btn-primary" href="/profile-address" role="button">Add new address</a></div>
-            {{!-- <div class="form-check">
-             
-              <input class="form-check-input" type="checkbox" checked id="same-address">
-               <div class="table-responsive fs-md">
-              {{!-- <table class="table table-hover mb-0">
-                <thead>
-                  <tr>
-                    <th>Address</th>
-                    
-                  </tr>
-                </thead>
-                <tbody>
-                    {{#each userAddress}}
-                    
-                   
-                  <tr id="address_{{id}}">
-                     
-                    <td class="py-3 align-middle"> <input class="form-check-input" type="radio" > <label class="form-check-label" for="use_points">Please check for confirming cash on delivery</label> {{firstName}} {{lastName}},{{address1}},{{city}}, {{state}}, {{country}},{{zipCode}}<span class="align-middle badge bg-info ms-2">{{addrname}} </span></td>
-                    
-                    {{!-- <td class="py-3 align-middle"><a class="nav-link-style me-2" href="#" data-bs-toggle="tooltip" title="Edit"><i class="ci-edit"></i></a>
-                    
-                    
-                    <a class="nav-link-style text-danger" href="/address/delete/{{id}}"  data-bs-toggle="tooltip" title="Remove">
-                        <i class="ci-trash"></i>
-                    </a>
-                       
-                        </td> --}}
-                  {{!-- </tr> --}}
-                  {{!-- <tr>
-                    <td class="py-3 align-middle">{{address1}}</td>
-                    
-                  </tr> --}}
-                  {{!-- <tr>
-                    <td class="py-3 align-middle">514 S. Magnolia St. Orlando, FL 32806, USA</td>
-                    <td class="py-3 align-middle"><a class="nav-link-style me-2" href="#" data-bs-toggle="tooltip" title="Edit"><i class="ci-edit"></i></a><a class="nav-link-style text-danger" href="#" data-bs-toggle="tooltip" title="Remove">
-                        <div class="ci-trash"></div></a></td>
-                  </tr> --}}
-                  {{!-- {{/each}} --}}
-                {{!-- </tbody>
-              </table> --}}
-            {{!-- </div>
-            </div> --}} 
+           
             <div class="table-responsive">
               <table class="table table-hover fs-sm border-top">
                 <thead>
@@ -244,14 +180,11 @@
                   <li class="d-flex justify-content-between align-items-center"><span class="me-2">Total: </span><span class="text-end"id="total">{{subtotal}}</span></li>
                   </ul>
                 <form action="" method="post"    class="needs-validation" method="post" novalidate>
-              {{!-- <h3 class="fw-normal text-center my-4" id="totalPricecheckout" >{{subtotal}} </h3> --}}
+              
               <h6>Total:₹<span id="totalPricecheckout" class="fw-normal text-end my-4">{{subtotal}}</span></h6>
                    <h5 class="h6 mb-3">Add Promo or Gift Card</h5>
                    <span id= "error-message" style="color:red"> </span> <br>  
-                  {{!-- <div class="mb-3">
-                    <input class="form-control" type="text" placeholder="Promo code" required>
-                    <div class="invalid-feedback">Please provide promo code.</div>
-                  </div> --}}
+                  
                   <div class="mb-2">
                       <!-- input -->
                       <label for="promocard" class="form-label sr-only">Promo code</label>
