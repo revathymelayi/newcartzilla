@@ -1,0 +1,254 @@
+ <!-- Sign in / sign up modal-->
+  <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-secondary">
+            <ul class="nav nav-tabs card-header-tabs" role="tablist">
+              <li class="nav-item"><a class="nav-link fw-medium active" href="#signin-tab" data-bs-toggle="tab" role="tab" aria-selected="true"><i class="ci-unlocked me-2 mt-n1"></i>Your List</a></li>
+              <li class="nav-item"><a class="nav-link fw-medium" href="#signup-tab" data-bs-toggle="tab" role="tab" aria-selected="false"><i class="ci-user me-2 mt-n1"></i>Your Account</a></li>
+              
+            </ul>
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body tab-content py-4">
+            
+            <form class="needs-validation tab-pane fade" autocomplete="off" novalidate id="signup-tab">
+               
+              </div>
+              <button class="btn btn-primary btn-shadow d-block w-100" type="submit"><a href="/signout">Sign out</a></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+ <main class="page-wrapper">
+   
+   <header class="shadow-sm">
+        
+    
+        <div class="navbar-sticky bg-light">
+          <div class="navbar navbar-expand-lg navbar-light">
+            <div class="container"><a class="navbar-brand d-none d-sm-block flex-shrink-0" href="index.html"><img src="/img/logo-dark.png" width="142" alt="Cartzilla"></a><a class="navbar-brand d-sm-none flex-shrink-0 me-2" href="index.html"><img src="img/logo-icon.png" width="74" alt="Cartzilla"></a>
+             <form action="/product/search" method="post">
+              <div class="input-group d-none d-lg-flex" style="width: 130%;"><i class="ci-search position-absolute top-50 start-0 translate-middle-y text-muted fs-base ms-3"></i>
+                <input class="form-control rounded-end pe-5" name="search" type="text" placeholder="Search for products">
+                 <button type="submit" class="btn btn-default btn btn-outline-primary d-block  "">Search</button> 
+              </div>
+              </form>
+              <div class="navbar-toolbar d-flex justify-content-between flex-shrink-1 align-items-center">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"><span class="navbar-toggler-icon"></span></button><a class="navbar-tool navbar-stuck-toggler" href="#"><span class="navbar-tool-tooltip">Expand menu</span>
+                              {{#if headerData.user}}
+        <div class="col-md-6 row align-items-center flex-grow-1">
+          {{#with headerData.user}}
+          <a href="/user/signup"><span class="small text-muted">Hello, {{first_name}}</span></a>
+           {{/with}}
+          <a href="/signout" class="small">Sign Out</a></span>
+        </div>
+        {{else}}
+        <div class="row align-items-center">
+          <a href="/user/signup"><span class="small text-muted">New User, Signup</span></a>
+          <a href="/user/signin" class="small">Hello,Sign in</a></span>
+        </div>
+        {{/if}}
+                  {{!-- <div class="navbar-tool-icon-box w-50"><i class="navbar-tool-icon ci-menu"></i></div></a><a class="navbar-tool d-none d-lg-flex" href="account-wishlist.html"><span class="navbar-tool-tooltip">Wishlist</span> --}}
+                  <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-heart"></i></div></a><a class="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="#signin-modal" data-bs-toggle="modal"> 
+                   
+                  
+                <div class="navbar-tool dropdown ms-3">
+                  <a class="navbar-tool-icon-box bg-secondary dropdown-toggle" href="">
+                    <span class="navbar-tool-label">
+                      {{#if cartCount}}
+                    {{#each cartCount}}
+                      {{count}}
+                    {{/each}}
+                  {{else}}
+                    0
+                  {{/if}}
+                      </span><i class="navbar-tool-icon ci-cart"></i></a>
+                    <a class="navbar-tool-text" href="/cart/view"><small>My Cart</small></a>
+                  <!-- Cart dropdown-->
+                  {{!-- <div class="dropdown-menu dropdown-menu-end">      
+                    <div class="widget widget-cart px-3 pt-2 pb-3" style="width: 20rem;">
+                      <div style="height: 15rem;" data-simplebar data-simplebar-auto-hide="false">
+                        <div class="widget-cart-item pb-2 border-bottom">
+                          <button class="btn-close text-danger" type="button" aria-label="Remove"><span aria-hidden="true">&times;</span></button>
+                          <div class="d-flex align-items-center"><a class="flex-shrink-0" href="shop-single-v1.html"><img src="/img/shop/cart/widget/01.jpg" width="64" alt="Product"></a>
+                            <div class="ps-2">
+                              <h6 class="widget-product-title"><a href="shop-single-v1.html">Women Colorblock Sneakers</a></h6>
+                              <div class="widget-product-meta"><span class="text-accent me-2">$150.<small>00</small></span><span class="text-muted">x 1</span></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="widget-cart-item py-2 border-bottom">
+                          <button class="btn-close text-danger" type="button" aria-label="Remove"><span aria-hidden="true">&times;</span></button>
+                          <div class="d-flex align-items-center"><a class="flex-shrink-0" href="shop-single-v1.html"><img src="img/shop/cart/widget/02.jpg" width="64" alt="Product"></a>
+                            <div class="ps-2">
+                              <h6 class="widget-product-title"><a href="shop-single-v1.html">TH Jeans City Backpack</a></h6>
+                              <div class="widget-product-meta"><span class="text-accent me-2">$79.<small>50</small></span><span class="text-muted">x 1</span></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="widget-cart-item py-2 border-bottom">
+                          <button class="btn-close text-danger" type="button" aria-label="Remove"><span aria-hidden="true">&times;</span></button>
+                          <div class="d-flex align-items-center"><a class="flex-shrink-0" href="shop-single-v1.html"><img src="img/shop/cart/widget/03.jpg" width="64" alt="Product"></a>
+                            <div class="ps-2">
+                              <h6 class="widget-product-title"><a href="shop-single-v1.html">3-Color Sun Stash Hat</a></h6>
+                              <div class="widget-product-meta"><span class="text-accent me-2">$22.<small>50</small></span><span class="text-muted">x 1</span></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="widget-cart-item py-2 border-bottom">
+                          <button class="btn-close text-danger" type="button" aria-label="Remove"><span aria-hidden="true">&times;</span></button>
+                          <div class="d-flex align-items-center"><a class="flex-shrink-0" href="shop-single-v1.html"><img src="img/shop/cart/widget/04.jpg" width="64" alt="Product"></a>
+                            <div class="ps-2">
+                              <h6 class="widget-product-title"><a href="shop-single-v1.html">Cotton Polo Regular Fit</a></h6>
+                              <div class="widget-product-meta"><span class="text-accent me-2">$9.<small>00</small></span><span class="text-muted">x 1</span></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-wrap justify-content-between align-items-center py-3">
+                        <div class="fs-sm me-2 py-2"><span class="text-muted">Subtotal:</span><span class="text-accent fs-base ms-1"><small></small></span></div><a class="btn btn-outline-secondary btn-sm" href="\view\cart">Expand cart<i class="ci-arrow-right ms-1 me-n1"></i></a>
+                      </div><a class="btn btn-primary btn-sm d-block w-100" href="checkout-details.html"><i class="ci-card me-2 fs-base align-middle"></i>Checkout</a>
+                    </div>
+                  </div> --}}
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        
+          <div class="navbar navbar-expand-lg navbar-light navbar-stuck-menu mt-n2 pt-0 pb-2">
+            <div class="container">
+              <div class="collapse navbar-collapse" id="navbarCollapse">
+                <!-- Search-->
+                <div class="input-group d-lg-none my-3"><i class="ci-search position-absolute top-50 start-0 translate-middle-y text-muted fs-base ms-3"></i>
+                  <input class="form-control rounded-start" type="text" placeholder="Search for products">
+                </div>
+                <!-- Departments menu-->
+                <ul class="navbar-nav navbar-mega-nav pe-lg-2 me-lg-2">
+                  <li class="nav-item dropdown"><a class="nav-link dropdown-toggle ps-lg-0" href="#" data-bs-toggle="dropdown"><i class="ci-view-grid me-2"></i>Departments</a>
+                    <div class="dropdown-menu px-2 pb-4">
+                      <div class="d-flex flex-wrap flex-sm-nowrap">
+                        <div class="mega-dropdown-column pt-3 pt-sm-4 px-2 px-lg-3">
+                          <div class="widget widget-links"><a class="d-block overflow-hidden rounded-3 mb-3" href="#"><img src="img/shop/departments/01.jpg" alt="Clothing"></a>
+                            <h6 class="fs-base mb-2">Clothing</h6>
+                            <ul class="widget-list">
+                              <li class="widget-list-item mb-1"><a class="widget-list-link" href="/">Women's clothing</a></li>
+                              <li class="widget-list-item mb-1"><a class="widget-list-link" href="/">Men's clothing</a></li>
+                              <li class="widget-list-item mb-1"><a class="widget-list-link" href="/">Kid's clothing</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                       
+                       
+                      </div>
+                     
+                    </div>
+                  </li>
+                </ul>
+                <!-- Primary menu-->
+                <ul class="navbar-nav">
+                  <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="" data-bs-toggle="dropdown">Home</a>
+                    <ul class="dropdown-menu">
+                      
+                      <li class="dropdown position-static mb-0"><a class="dropdown-item py-2 border-bottom" href="/"><span class="d-block text-heading">Cartzilla</span><small class="d-block text-muted">Classic shop layout</small></a>
+                        <div class="dropdown-menu h-100 animation-none mt-0 p-3"><a class="d-block" href="/" style="width: 250px;"><img src="img/home/preview/th01.jpg" alt="Fashion Store v.1"></a></div>
+                      </li>
+                      
+                      
+                      
+                      
+                    </ul>
+                  </li>
+                  <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Shop</a>
+                    <div class="dropdown-menu p-0">
+                      <div class="d-flex flex-wrap flex-sm-nowrap px-2">
+                        
+                        
+                        <div class="mega-dropdown-column pt-1 pt-lg-4 px-2 px-lg-3">
+                          <div class="widget widget-links mb-4">
+                            <h6 class="fs-base mb-3">Shop pages</h6>
+                            <ul class="widget-list">
+                              
+                              
+                              
+                              <li class="widget-list-item"><a class="widget-list-link" href="shop-cart.html">Cart</a></li>
+                              <li class="widget-list-item"><a class="widget-list-link" href="checkout-details.html">Checkout - Details</a></li>
+                              <li class="widget-list-item"><a class="widget-list-link" href="checkout-shipping.html">Checkout - Shipping</a></li>
+                              <li class="widget-list-item"><a class="widget-list-link" href="checkout-payment.html">Checkout - Payment</a></li>
+                              <li class="widget-list-item"><a class="widget-list-link" href="checkout-review.html">Checkout - Review</a></li>
+                              <li class="widget-list-item"><a class="widget-list-link" href="checkout-complete.html">Checkout - Complete</a></li>
+                              <li class="widget-list-item"><a class="widget-list-link" href="order-tracking.html">Order Tracking</a></li>
+                              
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown active"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">Account</a>
+                    <ul class="dropdown-menu">
+                      <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#" data-bs-toggle="dropdown">Shop User Account</a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="/orders">Orders History</a></li>
+                          <li><a class="dropdown-item" href="/profile-settings">Profile Settings</a></li>
+                          <li><a class="dropdown-item" href="/profile-address">Account Addresses</a></li>
+                          
+                          <li><a class="dropdown-item" href="account-wishlist.html">Wishlist</a></li>
+                          <li><a class="dropdown-item" href="/wallet">Wallet</a></li>
+                          
+                        </ul>
+                      </li>
+                      
+                     
+                      <li><a class="dropdown-item" href="/signin">Sign In / Sign Up</a></li>
+                      <li><a class="dropdown-item" href="">Password Recovery</a></li>
+                    </ul>
+                  </li>
+                  <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">Pages</a>
+                    <ul class="dropdown-menu">
+                      <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#" data-bs-toggle="dropdown">Navbar Variants</a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="navbar-1-level-light.html">1 Level Light</a></li>
+                          <li><a class="dropdown-item" href="navbar-1-level-dark.html">1 Level Dark</a></li>
+                          <li><a class="dropdown-item" href="navbar-2-level-light.html">2 Level Light</a></li>
+                          <li><a class="dropdown-item" href="navbar-2-level-dark.html">2 Level Dark</a></li>
+                          <li><a class="dropdown-item" href="navbar-3-level-light.html">3 Level Light</a></li>
+                          <li><a class="dropdown-item" href="navbar-3-level-dark.html">3 Level Dark</a></li>
+                          <li><a class="dropdown-item" href="home-electronics-store.html">Electronics Store</a></li>
+                          <li><a class="dropdown-item" href="home-marketplace.html">Marketplace</a></li>
+                          <li><a class="dropdown-item" href="home-grocery-store.html">Side Menu (Grocery)</a></li>
+                        </ul>
+                      </li>
+                      <li class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="about.html">About Us</a></li>
+                      <li><a class="dropdown-item" href="contacts.html">Contacts</a></li>
+                      <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#" data-bs-toggle="dropdown">Help Center</a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="help-topics.html">Help Topics</a></li>
+                          <li><a class="dropdown-item" href="help-single-topic.html">Single Topic</a></li>
+                          <li><a class="dropdown-item" href="help-submit-request.html">Submit a Request</a></li>
+                        </ul>
+                      </li>
+                      <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#" data-bs-toggle="dropdown">404 Not Found</a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="404-simple.html">404 - Simple Text</a></li>
+                          <li><a class="dropdown-item" href="404-illustration.html">404 - Illustration</a></li>
+                        </ul>
+                      </li>
+                      <li class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="sticky-footer.html">Sticky Footer Demo</a></li>
+                    </ul>
+                  </li>
+                 
+                  
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+    </main>

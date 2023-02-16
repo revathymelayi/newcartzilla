@@ -1,0 +1,62 @@
+<main class="page-wrapper">
+    <div class="container py-4 py-lg-5 my-4">
+        <div class="col-md-6 pt-4 mt-3 mt-md-0">
+            <h2 class="h4 mb-3">No account? Sign up</h2>
+            <p class="fs-sm text-muted mb-4">Registration takes less than a minute but gives you full control over your
+                orders.</p>
+                <!-- form -->
+                {{#if message}}
+                        <div class="alert alert-success" role="alert">
+                            {{message}}
+                        </div>
+                    {{else if error}}
+                        <div class="alert alert-danger" role="alert">
+                            {{error}}
+                        </div>
+                    {{/if}}
+            <form action="/user/signup" method="post" class="needs-validation"  >
+                <div class="row gx-4 gy-3">
+                    <div class="col-sm-6">
+                        <label class="form-label" for="reg-fn">First Name</label>
+                        <input class="form-control" type="text" pattern="(^[A-Za-z]+$)$" title="Please enter a valid name" name="first_name" required id="reg-fn">
+                        <div class="invalid-feedback">Please enter your first name!</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label" for="reg-ln">Last Name</label>
+                        <input class="form-control" type="text" pattern="(^[A-Za-z]+$)$" title="Please enter a valid name" name="last_name" required id="reg-ln" >
+                        <div class="invalid-feedback">Please enter your last name!</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label" for="reg-email">E-mail Address</label>
+                        <input class="form-control" type="email" title="please enter a valid email"  name="email" required id="reg-email">
+                        <div class="invalid-feedback">Please enter valid email address!</div>
+                    </div>
+               
+                    <div class="col-sm-6">
+                        <label class="form-label" for="Phone-number">Phone-number</label>
+                        <input class="form-control" type="text" title="please enter a valid phone number" pattern="^\d{10}$" name="phone" required id="reg-password-confirm">
+                        
+                    </div>
+                     <div class="col-sm-6">
+                        <label class="form-label" for="reg-password">Password</label>
+                        <input class="form-control" type="password" title="password should contain atleast 6 character" pattern="^.{6,}$" name="password" required id="reg-password">
+                        <div class="invalid-feedback">Please enter password!</div>
+                    </div>
+                     <div class="col-sm-6">
+                        <label class="form-label" for="reg-password">Confirm Password</label>
+                        <input class="form-control" type="password" title="password should contain atleast 6 character" pattern="^.{6,}$" name="confpassword" required id="reg-password">
+                        <div class="invalid-feedback">Please enter password!</div>
+                    </div>
+                    
+                    <div class="col-12 text-end">
+                        <button class="btn btn-primary" type="submit"><i class="ci-user me-2 ms-n1"></i>Sign Up</button>
+                    </div>
+                    <span id = "message" style="color:red"> </span> <br><br>  
+                     <div>
+                            Already have an account? <a href="/user/signin">Sign in</a>
+                        </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>

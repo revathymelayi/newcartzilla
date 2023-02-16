@@ -1,0 +1,290 @@
+  <div class="page-title-overlap bg-dark pt-4">
+        <div class="container d-lg-flex justify-content-between py-2 py-lg-3">
+          <div class="order-lg-2 mb-3 mb-lg-0 pt-lg-2">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">
+                <li class="breadcrumb-item"><a class="text-nowrap" href="/"><i class="ci-home"></i>Home</a></li>
+                <li class="breadcrumb-item text-nowrap"><a href="#">Account</a>
+                </li>
+                <li class="breadcrumb-item text-nowrap active" aria-current="page">Order Details</li>
+              </ol>
+            </nav>
+          </div>
+          <div class="order-lg-1 pe-lg-4 text-center text-lg-start">
+            <h1 class="h3 text-light mb-0">My orders</h1>
+          </div>
+        </div>
+      </div>
+     <div class="container pb-5 mb-2 mb-md-4">
+        <div class="row">
+          <!-- Sidebar-->
+           <aside class="col-lg-4 pt-4 pt-lg-0 pe-xl-5">
+            <div class="bg-white rounded-3 shadow-lg pt-1 mb-5 mb-lg-0">
+              <div class="d-md-flex justify-content-between align-items-center text-center text-md-start p-4">
+                <div class="d-md-flex align-items-center">
+                  <div class="img-thumbnail rounded-circle position-relative flex-shrink-0 mx-auto mb-2 mx-md-0 mb-md-0" style="width: 6.375rem;"><span class="badge bg-warning position-absolute end-0 mt-n2" data-bs-toggle="tooltip" title="Reward points"></span><img class="rounded-circle" src="/img/shop/account/avatar.jpg" alt="Susan Gardner"></div>
+                  <div class="ps-md-3">
+                    <h3 class="fs-base mb-0"></h3><span class="text-accent fs-sm"></span>
+                  </div>
+                </div><a class="btn btn-primary d-lg-none mb-2 mt-3 mt-md-0" href="#account-menu" data-bs-toggle="collapse" aria-expanded="false"><i class="ci-menu me-2"></i>Account menu</a>
+              </div>
+              <div class="d-lg-block collapse" id="account-menu">
+                <div class="bg-secondary px-4 py-3">
+                  <h3 class="fs-sm mb-0 text-muted">Dashboard</h3>
+                </div>
+                <ul class="list-unstyled mb-0">
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3   {{#if orders}} active {{else}} {{/if}}" href="/orders"><i class="ci-bag opacity-60 me-2"></i>Orders<span class="fs-sm text-muted ms-auto"></span></a></li>
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="account-wishlist.html"><i class="ci-heart opacity-60 me-2"></i>Wishlist<span class="fs-sm text-muted ms-auto"></span></a></li>
+                  <li class="mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 {{#if orderDetails}} active {{else}}{{/if}}" href="/orders/details/:id"><i class="ci-help opacity-60 me-2"></i>Details<span class="fs-sm text-muted ms-auto"></span></a></li>
+                </ul>
+                <div class="bg-secondary px-4 py-3">
+                  <h3 class="fs-sm mb-0 text-muted">Account settings</h3>
+                </div>
+                <ul class="list-unstyled mb-0">
+                  <li class="border-bottom mb-0">
+                    <a class="nav-link-style d-flex align-items-center px-4 py-3  {{#if profileSettings}} active {{else}} {{/if}}" href="/profile-settings">
+                    <i class="ci-user opacity-60 me-2"></i>Profile info</a></li>
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 " href="/profile-address"><i class="ci-location opacity-60 me-2"></i>Addresses</a></li>
+                  <li class="mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 " href=""><i class="ci-card opacity-60 me-2"></i>Wallet</a></li>
+                  <li class="d-lg-none border-top mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="/signout"><i class="ci-sign-out opacity-60 me-2"></i>Sign out</a></li>
+                </ul>
+              </div>
+            </div>
+          </aside>
+          <!-- Content  -->
+          <section class="col-lg-8">
+            <!-- Toolbar-->
+            <div class="d-flex justify-content-between align-items-center pt-lg-2 pb-4 pb-lg-5 mb-lg-3">
+              <div class="d-flex align-items-center">
+                <label class="d-none d-lg-block fs-sm text-light text-nowrap opacity-75 me-2" for="order-sort">Sort orders:</label>
+                <label class="d-lg-none fs-sm text-nowrap opacity-75 me-2" for="order-sort">Sort orders:</label>
+                <select class="form-select" id="order-sort">
+                  <option>All</option>
+                  <option>Delivered</option>
+                  <option>In Progress</option>
+                  <option>Delayed</option>
+                  <option>Canceled</option>
+                </select>
+              </div><a class="btn btn-primary btn-sm d-none d-lg-inline-block" href="/signout"><i class="ci-sign-out me-2"></i>Sign out</a>
+            </div>
+
+             <div class="d-flex justify-content-between mb-6">
+              <!-- heading -->
+              <h4 class="mb-0">Order Details</h4>
+              <!-- button -->
+              {{#with orderDetails}}
+                {{#if ../invoice}}
+                  <a onclick="downloadInvoice()" class="btn btn-outline-primary">Download Invoice</a>
+                {{/if}}
+              {{/with}}
+            </div>
+
+            <!-- Orders list-->
+            <div class="table-responsive fs-md mb-4">
+              <table class="table table-hover mb-0">
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th></th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                  <tr id="order_">
+                 {{#each products}}
+                    <td class="py-3">
+                    <a  href="/product/{{name}}/{{_id}}"> <img src="/admin/images/products/{{image}}" alt="{{name}}" 
+                    class="nav-link-style fw-medium fs-sm"></a>
+                    <a href="#" class="nav-link-style fw-medium fs-sm">
+                      <h6 class="mb-0">{{name}}</h6>
+                    </a>
+                    </td>
+                    <td class="py-3">
+                      <a href="#" class="">
+                          <h6 class="mb-0">{{amount}}</h6>
+                        </a>
+                    </td>
+                    <td class="py-3">
+                    {{quantity}}
+                    </td>
+                    
+                    <td class="py-3">
+                    <a class="text-inherit">{{payment_method}}</a>
+                    </td>
+                   </tr>
+                  {{/each}}
+                </tbody>
+               {{#with orderDetails}}
+                  <tfoot>
+                    <tr class="table-order">
+                        <td colspan="3">
+                            <h5>Subtotal :</h5>
+                        </td>
+                        <td>
+                            <h5>₹ <span id="actual">{{actualAmount}}</span></h5>
+                        </td>
+                    </tr>
+
+                    <tr class="table-order">
+                        <td colspan="3">
+                            <h5>Coupon</h5>
+                        </td>
+                        <td>
+                            <h5>₹ <span id="coupon">{{couponAmount}}</span></h5>
+                        </td>
+                    </tr>
+
+                    <tr class="table-order">
+                        <td colspan="3">
+                            <h4 class="theme-color fw-bold">Total Price :</h4>
+                        </td>
+                        <td>
+                            <h4 class="theme-color fw-bold">₹ <span id="total">{{total}}</span></h4>
+                        </td>
+                    </tr>
+                 </tfoot>
+                </table>
+              </div>
+              <div class="col-xl-4">
+             <div class="order-success">
+                      <div class="row g-4">
+                          <h4>summery</h4>
+                          <ul class="order-details">
+                              <li>Order ID: {{orderId}}</li>
+                              <li>Order Date: <span id="date">{{../orderDate}}</span></li>
+                              <input type="hidden" id="orderId" value="{{_id}}">
+                          </ul>
+                          <div class="payment-mode">
+                              <h4>payment method</h4>
+                              <p>{{payment_method}}</p>
+                          </div>
+                      {{/with}}
+                          <h4>shipping address</h4>
+                          <ul class="order-details">
+                              {{#each address}}
+                                  <li id="name">{{firstName}} {{lastName}}</li>
+                                  <li id="address">{{address1}},{{address2}}</li>
+                                  <li id="place">{{city}} ,{{state}},{{country}} ,{{zipCode}}</li>
+                              {{/each}}
+                          </ul>
+                      </div>
+                    
+                  </div>     
+              </div>      
+           
+            <!-- Pagination-->
+            <nav class="d-flex justify-content-between pt-2" aria-label="Page navigation">
+              <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#"><i class="ci-arrow-left me-2"></i>Prev</a></li>
+              </ul>
+              <ul class="pagination">
+                <li class="page-item d-sm-none"><span class="page-link page-link-static">1 / 5</span></li>
+                <li class="page-item active d-none d-sm-block" aria-current="page"><span class="page-link">1<span class="visually-hidden">(current)</span></span></li>
+                <li class="page-item d-none d-sm-block"><a class="page-link" href="#">2</a></li>
+                <li class="page-item d-none d-sm-block"><a class="page-link" href="#">3</a></li>
+                <li class="page-item d-none d-sm-block"><a class="page-link" href="#">4</a></li>
+                <li class="page-item d-none d-sm-block"><a class="page-link" href="#">5</a></li>
+              </ul>
+              <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#" aria-label="Next">Next<i class="ci-arrow-right ms-2"></i></a></li>
+              </ul>
+            </nav>
+          </section>
+        </div>
+      </div>
+      
+<script>
+    async function downloadInvoice(){
+      const name= document.getElementById('name').innerText
+      const address= document.getElementById('address').innerText
+      const place= document.getElementById('place').innerText
+      const orderId= document.getElementById('orderId').value
+      const date= document.getElementById('date').innerText
+      const total= document.getElementById('total').innerText
+      const coupon= document.getElementById('coupon').innerText
+      const subtotal= document.getElementById('actual').innerText
+
+       let response = await fetch('/download/invoice/'+orderId, {
+          method: 'put',
+      });
+        let result = await response.json();
+        console.log(result)
+        const productArray = result.products.map((item)=>{
+          return {
+            quantity: item.quantity,
+            description: item.name,
+            price: item.price
+          }
+        })
+        var data = {
+          "currency": "INR",
+          "marginTop": 25,
+          "marginRight": 25,
+          "marginLeft": 25,
+          "marginBottom": 25,
+        //"logoExtension": "png", //only when logo is base64
+          "sender": {
+              "company": "Cartzilla",
+              "address": "MG Road, Bangalore East",
+              "zip": "560001",
+              "city": "karnataka, Banglore",
+              "country": "India"
+          },
+          "client": {
+              "company": name,
+              "address": address,
+              "place": place,
+          },
+          "information": {
+              // Invoice number
+              "number": result.invoice.invoiceId,
+              // Invoice data
+              "date": result.invoiceDate,
+              // Invoice due date
+          },
+          "translate": {
+            "subtotal": subtotal, // Defaults to 'Subtotal'
+            "product-total": coupon, // Defaults to 'Total'
+            "total": total // Defaults to 'Total'
+          },
+          "orderId": orderId,
+          "orderDate": date,
+          "products": productArray,
+          "bottomNotice": "Kindly pay your invoice within 15 days."
+        };
+        easyinvoice.createInvoice(data, function (result) {
+            // The response will contain a base64 encoded PDF file
+            console.log('PDF base64 string: ', result.pdf);
+            easyinvoice.download("invoice.pdf")
+        });
+    }
+</script>
+
+
+
+<style>
+  .order-success{
+    padding: calc(20px + (30 - 20) * ((100vw - 320px) / (1920 - 320)));
+    border-radius: 5px;
+    background-color: #f9f9f6;
+  }
+  .order-success h4{
+    font-weight: 700;
+    text-transform: capitalize;
+    font-size: 16px;
+    color: #212529;
+  }
+  .order-details{
+    list-style: none;
+  }
+  .table-order h5{
+    color: #212529;
+    font-size: calc(15px + (16 - 15) * ((100vw - 320px) / (1920 - 320)));
+    line-height: 1.2;
+    font-weight: 400;
+  }
+</style>

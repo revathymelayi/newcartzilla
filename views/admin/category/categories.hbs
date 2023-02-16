@@ -1,0 +1,190 @@
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="title-header option-title">
+                <h5>All Category</h5>
+                <form class="d-inline-flex">
+                    <a href="/admin/add/category" class="align-items-center btn btn-theme">
+                        <i data-feather="plus-square"></i>Add New
+                    </a>
+                </form>
+            </div>
+
+            <div class="table-responsive category-table">
+                <table class="table all-package theme-table" id="table_id">
+                    <thead>
+                        <tr>
+                            <th>Category Name</th>
+                            <th>Category Image</th>
+                            <th>Offer</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {{#each category}}
+                        <tr>
+                            <td>{{name}}</td>
+                            <td>
+                                <div class="table-image">
+                                    <img src="/admin/images/category/{{image}}" class="img-fluid" alt="">
+                                </div>
+                            </td>
+                            <td>
+                                {{#if offer}}
+                                {{offer}} %
+                                {{else}}
+                                <p>-</p>
+                                {{/ if}}
+                            </td>
+                            <td>
+                                <ul>
+
+                                    <li>
+                                        <a href="javascript:void(0)" onclick="categoryDetails('{{_id}}')">
+                                            <i class="ri-pencil-line"></i>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                            data-bs-target="#deleteModalToggle"
+                                            onclick="deleteCategory('{{name}}','{{_id}}')">
+                                            <i class="ri-delete-bin-line"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Delete Modal Box Start -->
+    <div class="modal fade theme-modal remove-coupon" id="deleteModalToggle" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header d-block text-center">
+                    <h5 class="modal-title w-100" id="exampleModalLabel22">Are You Sure ?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="remove-box">
+                        <p>You want to delete <span id="category_name"></span></p>
+                        <input type="hidden" id="category_id">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-target="#deleteModalToggle"
+                        data-bs-toggle="modal" data-bs-dismiss="modal" onclick="confirmDelete()">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Category</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/admin/category/edit" method="post" autocomplete="off" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">Category Name</label>
+                            <input type="text" required="" class="form-control" id="name" name="name"
+                                aria-describedby="firstName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastName" class="form-label">Category Image : <input type="text"
+                                    style="color: blue;" name="image" value="" id="image"></label>
+                            <input class="form-control form-choose" id="image" name="category_image"
+                                onchange="getFileName(event)" type="file" id="formFile">
+                        </div>
+                        <div class="mb-3">
+                            <label for="emailAdress" class="form-label">Offer</label>
+                            <input type="number" required="" class="form-control" id="offer" name="offer"
+                                aria-describedby="emailHelp">
+                        </div>
+                        <input type="hidden" value="" name="categoryId" id="categoryId">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" type="submit">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function deleteCategory(name, id) {
+        document.getElementById('category_name').innerText = name
+        document.getElementById('category_id').value = id
+    }
+    function confirmDelete() {
+        category_id = document.getElementById('category_id').value
+        $.ajax({
+            async: true,
+            url: '/admin/category/delete/' + category_id,
+            type: 'put',
+            beforeSend: function (request) {
+                return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+            },
+            success: function (response) {
+                if (response == 'success') {
+                    Swal.fire({
+                        title: 'Success',
+                        text: "Category deleted successfully !",
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'OK',
+                        timer: 3000
+                    }).then(() => {
+                        document.location.href = '/admin/categories';
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                    })
+                }
+            }
+        })
+
+    }
+
+    function categoryDetails(categoryId) {
+        $.ajax({
+        
+            url: '/admin/category/details/' + categoryId,
+            type: 'get',
+            beforeSend: function (request) {
+                return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+            },
+            success: function (response) {
+                if (response) {
+                    document.getElementById('name').value = response.name
+                    document.getElementById('image').value = response.image
+                    document.getElementById('offer').value = response.offer
+                    document.getElementById('categoryId').value = response._id
+                    $('#editModal').modal('show');
+                }
+
+            }
+        })
+    }
+    function getFileName(event) {
+        var filename = URL.createObjectURL(event.target.files[0])
+        document.getElementById('image').value = event.target.files[0].name
+    }
+</script>

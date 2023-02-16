@@ -1,0 +1,281 @@
+<main class="page-wrapper">
+  <!-- Page Title-->
+  <div class="page-title-overlap bg-dark pt-4">
+    <div class="container d-lg-flex justify-content-between py-2 py-lg-3">
+      <div class="order-lg-2 mb-3 mb-lg-0 pt-lg-2">
+        <nav aria-label="breadcrumb">
+          <ol
+            class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start"
+          >
+            <li class="breadcrumb-item"><a class="text-nowrap" href="/"><i
+                  class="ci-home"
+                ></i>Home</a></li>
+            <li class="breadcrumb-item text-nowrap"><a
+                href="/p"
+              >Shop</a>
+            </li>
+            <li
+              class="breadcrumb-item text-nowrap active"
+              aria-current="page"
+            >Cart</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="order-lg-1 pe-lg-4 text-center text-lg-start">
+        <h1 class="h3 text-light mb-0">Your cart</h1>
+      </div>
+    </div>
+  </div>
+  <div class="container pb-5 mb-2 mb-md-4">
+    <div class="row">
+      <!-- List of items-->
+      <section class="col-lg-8">
+        <div
+          class="d-flex justify-content-between align-items-center pt-3 pb-4 pb-sm-5 mt-1"
+        >
+          <h2 class="h6 text-light mb-0">Products</h2><a
+            class="btn btn-outline-primary btn-sm ps-2"
+            href="/"
+          ><i class="ci-arrow-left me-2"></i>Continue shopping</a>
+        </div>
+         {{#if items}}
+                <div class="alert alert-danger p-2" role="alert">
+                You’ve got FREE delivery. Start
+                    <a href="#!" class="alert-link">checkout now!</a>
+                </div>
+            {{else}}
+                <div class="alert alert-danger p-2" role="alert">
+                Your cart is empty !!!!
+                </div>
+            {{/if}}
+        <!-- Item-->
+        <form action="/proceed-checkout" method="post">
+        {{#each items}}
+        <div
+            class="d-sm-flex justify-content-between align-items-center my-2 pb-3 border-bottom"
+          >
+            <div
+              class="d-block d-sm-flex align-items-center text-center text-sm-start"
+            ><a
+                class="d-inline-block flex-shrink-0 mx-auto me-sm-4"
+                href="/product/{{name}}/{{_id}}"
+              ><img
+                  src="/admin/images/products/{{thumbnail_image}}"
+                  width="160"
+                  alt="Product"  
+                /></a>
+              <div class="pt-2">
+                <h3 class="product-title fs-base mb-2"><a
+                    href="shop-single-v1.html"
+                  >{{name}}</a></h3>
+                {{! <div class="fs-sm"><span class="text-muted me-2">Size:</span>8.5</div>
+                  <div class="fs-sm"><span class="text-muted me-2">Color:</span>White &amp; Blue</div> }}
+                <div  class="fs-lg text-accent pt-2 price">
+                  <div id="get">
+                    <p id="actual_price_{{_id}}" hidden="" >{{price}}</p>
+                    ₹<span id="price_text_{{_id}}">{{price}} </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="pt-2 pt-sm-0 ps-sm-3 mx-auto mx-sm-0 text-center text-sm-start"
+              style="max-width: 9rem;"
+            >
+              <label class="form-label" for="quantity">Quantity</label>
+              <input
+                class="form-control"
+                type="number"
+                id="{{_id}}"
+                min="1" 
+                name="quantity"
+                pattern="{{_id}}"
+                max="{{unit}}"
+                value="1"
+                onchange="validateData('{{_id}}')"
+              />
+              <a
+                class="btn btn-link px-0 text-danger"
+                onclick="removeItem('{{_id}}')"
+              >
+                <i class="ci-close-circle me-2"></i>
+                <span class="fs-sm">Remove</span>
+              </a>
+            </div>
+          </div>
+        {{/each}}
+        <!-- Item-->
+        {{! <div class="d-sm-flex justify-content-between align-items-center my-2 pb-3 border-bottom">
+              <div class="d-block d-sm-flex align-items-center text-center text-sm-start"><a class="d-inline-block flex-shrink-0 mx-auto me-sm-4" href="shop-single-v1.html"><img src="img/shop/cart/02.jpg" width="160" alt="Product"></a>
+                <div class="pt-2">
+                  <h3 class="product-title fs-base mb-2"><a href="shop-single-v1.html">TH Jeans City Backpack</a></h3>
+                  <div class="fs-sm"><span class="text-muted me-2">Brand:</span>Tommy Hilfiger</div>
+                  <div class="fs-sm"><span class="text-muted me-2">Color:</span>Khaki</div>
+                  <div class="fs-lg text-accent pt-2">$79.<small>50</small></div>
+                </div>
+              </div>
+              <div class="pt-2 pt-sm-0 ps-sm-3 mx-auto mx-sm-0 text-center text-sm-start" style="max-width: 9rem;">
+                <label class="form-label" for="quantity2">Quantity</label>
+                <input class="form-control" type="number" id="quantity2" min="1" value="1">
+                <button class="btn btn-link px-0 text-danger" type="button"><i class="ci-close-circle me-2"></i><span class="fs-sm">Remove</span></button>
+              </div>
+            </div> }}
+        <!-- Item-->
+        {{! <div class="d-sm-flex justify-content-between align-items-center my-2 pb-3 border-bottom">
+              <div class="d-block d-sm-flex align-items-center text-center text-sm-start"><a class="d-inline-block flex-shrink-0 mx-auto me-sm-4" href="shop-single-v1.html"><img src="img/shop/cart/03.jpg" width="160" alt="Product"></a>
+                <div class="pt-2">
+                  <h3 class="product-title fs-base mb-2"><a href="shop-single-v1.html">3-Color Sun Stash Hat</a></h3>
+                  <div class="fs-sm"><span class="text-muted me-2">Brand:</span>The North Face</div>
+                  <div class="fs-sm"><span class="text-muted me-2">Color:</span>Pink / Beige / Dark blue</div>
+                  <div class="fs-lg text-accent pt-2">$22.<small>50</small></div>
+                </div>
+              </div>
+              <div class="pt-2 pt-sm-0 ps-sm-3 mx-auto mx-sm-0 text-center text-sm-start" style="max-width: 9rem;">
+                <label class="form-label" for="quantity3">Quantity</label>
+                <input class="form-control" type="number" id="quantity3" min="1" value="1">
+                <button class="btn btn-link px-0 text-danger" type="button"><i class="ci-close-circle me-2"></i><span class="fs-sm">Remove</span></button>
+              </div>
+            </div> }}
+        <!-- Item-->
+        {{! <div class="d-sm-flex justify-content-between align-items-center my-2 pb-3 border-bottom">
+              <div class="d-block d-sm-flex align-items-center text-center text-sm-start"><a class="d-inline-block flex-shrink-0 mx-auto me-sm-4" href="shop-single-v1.html"><img src="img/shop/cart/04.jpg" width="160" alt="Product"></a>
+                <div class="pt-2">
+                  <h3 class="product-title fs-base mb-2"><a href="shop-single-v1.html">Cotton Polo Regular Fit</a></h3>
+                  <div class="fs-sm"><span class="text-muted me-2">Size:</span>42</div>
+                  <div class="fs-sm"><span class="text-muted me-2">Color:</span>Light blue</div>
+                  <div class="fs-lg text-accent pt-2">$9.<small>00</small></div>
+                </div>
+              </div>
+              <div class="pt-2 pt-sm-0 ps-sm-3 mx-auto mx-sm-0 text-center text-sm-start" style="max-width: 9rem;">
+                <label class="form-label" for="quantity4">Quantity</label>
+                <input class="form-control" type="number" id="quantity4" min="1" value="1">
+                <button class="btn btn-link px-0 text-danger" type="button"><i class="ci-close-circle me-2"></i><span class="fs-sm">Remove</span></button>
+              </div>
+            </div> }}
+        {{! <button class="btn btn-outline-accent d-block w-100 mt-4" type="button"><i class="ci-loading fs-base me-2"></i>Update cart</button> }}
+      </section>
+      <!-- Sidebar-->
+      <aside class="col-lg-4 pt-4 pt-lg-0 ps-xl-5">
+        <div class="bg-white rounded-3 shadow-lg p-4">
+          <div class="py-2 px-xl-2">
+            <div class="text-center mb-4 pb-3 border-bottom">
+              <h2 class="widget-title text-center">Summary</h2>
+              {{!-- <h2 class="h6 mb-3 pb-1">Subtotal</h2> --}}
+              <h6>Subtotal:₹<span id="total" class="fw-normal">{{subtotal}}</span></h6>
+            </div>
+             <div class="mb-3 mb-4">
+              <label class="form-label mb-3" for="order-comments"><span
+                  class="badge bg-info fs-xs me-2"
+                >Note</span><span class="fw-medium">Additional comments</span></label>
+              <textarea
+                class="form-control"
+                rows="6"
+                id="order-comments"
+              ></textarea>
+            </div>
+            <div class="accordion" id="order-options">
+              <div class="accordion-item">
+                
+                <div
+                  class="accordion-collapse collapse show"
+                  id="promo-code"
+                  data-bs-parent="#order-options"
+                >
+                  {{! <form
+                    class="accordion-body needs-validation"
+                    method="post"
+                    novalidate
+                  >
+                    <div class="mb-3">
+                      <input
+                        class="form-control"
+                        type="text"
+                        placeholder="Promo code"
+                        required
+                      />
+                      <div class="invalid-feedback">Please provide promo code.</div>
+                    </div>
+                    <button
+                      class="btn btn-outline-primary d-block w-100"
+                      type="submit"
+                    >Apply promo code</button>
+                  </form> --}}
+                </div>
+              </div>
+              
+            </div>
+            {{#if btn}}
+            <button type="submit" class="btn btn-primary btn-shadow d-block w-100 mt-4" ><i class="ci-card fs-lg me-2"></i>Proceed to Checkout</button>
+            {{/if}}
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+  </form>
+</main>
+<script>
+  async function removeItem (itemid){
+  let response = await fetch('/cart/remove/'+itemid, { method: 'DELETE', headers: {
+                  'Content-Type': 'application/json',
+                }, } ); 
+              let res = await response.json()
+             if(res=="success"){
+              Swal.fire({
+                  title: 'Success',
+                  text: "Item deleted successfully !",
+                  icon: 'success',
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'OK',
+                  timer: 3000
+              }).then((res)=>{
+                window.location.reload()
+              })
+             } else Swal.fire({
+                  title: 'Something went wrong',
+                  text: "something went wrong !",
+                  icon: 'success',
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'OK',
+                  timer: 3000
+              })
+               }
+
+
+             function validateData(id){
+
+
+              
+            
+
+             const element=  document.getElementById(id)
+             const priceText=document.getElementById('price_text_'+id)
+             const price=document.getElementById('actual_price_'+id)
+             const total=document.getElementById('total')
+             if(Number(element.value) > Number(element.max))
+              element.value=element.max
+             
+             const rate=priceText.innerHTML
+             priceText.innerHTML=Number(price.innerHTML)*Number(element.value)
+             const diff=Number(priceText.innerHTML)-Number(rate)
+             total.innerHTML=Number(diff)+Number(total.innerHTML)
+              }
+
+             async function proceedTocheckout(){
+            const quantity=Object.values(document.getElementsByName("quantity")).map((item)=>(
+              {
+               productid:item.id,
+               quantity:item.value
+              }
+            ))
+
+             let response = await fetch('/proceed-checkout', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json',},
+            body: JSON.stringify(quantity)});
+            let result = await response.json()
+            
+              }
+</script>

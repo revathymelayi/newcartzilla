@@ -1,0 +1,56 @@
+
+.container-fluid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: linear-gradient(to bottom, rgb(246, 216, 232), rgb(68, 5, 151));
+
+}
+.inner{
+  padding: 80px;
+  border: 1px rgb(76, 24, 78) solid;
+  border-radius: 0.5px;
+  background-color: rgb(249, 249, 249);
+} 
+
+
+.form-control:focus {
+    color: #0c0e10;
+    background-color: rgb(182, 231, 245) !important;
+    border-color: rgb(151, 141, 192) !important;
+    box-shadow: 0 0 0 0.25rem  rgb(168, 198, 219) !important;
+}
+.cust-btn{
+  padding: 5px 30px;
+  border-radius: 4px;
+  background-color: rgb(80, 7, 169);
+  color: white;
+}
+
+.card-body{
+
+  background-color: rgba(239, 205, 234, 0.932) !important;
+
+}
+
+
+.inner1{
+  padding: 80px;
+  border: 1px rgb(76, 24, 78) solid;
+  border-radius: 4px;
+  background-color: rgb(249, 249, 249);
+  
+} 
+
+.container-fluid1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  background-image: linear-gradient(to bottom, rgb(246, 216, 232), rgb(68, 5, 151));
+
+}
+
+
+

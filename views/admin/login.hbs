@@ -1,0 +1,120 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="icon" href="/admin/images/favicon-32x32.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/admin/images/favicon-32x32.png" type="image/x-icon">
+
+
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<body>
+    <div id="login">
+        <h3 class="text-center text-white pt-5"></h3>
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" action="/admin/login" method="post">
+                            <h3 class="text-center text-info">Admin-Login</h3>
+                            <div class="form-group">
+                                <label for="email" class="text-info">Username:</label><br>
+                                <input type="text" name="email" id="email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="text-info">Password:</label><br>
+                                <input type="password" name="password" id="password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+                            </div>
+                            {{#if error}}
+                                <div class="text-danger" role="alert">
+                                    {{error}}
+                                </div>
+                            {{/if}}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<style>
+    body {
+  margin: 0;
+  padding: 0;
+  background-image: linear-gradient(to bottom, #fff, #f792ad);
+  height: 100vh;
+}
+#login .container #login-row #login-column #login-box {
+  margin-top: 55px;
+  max-width: 600px;
+  height: 320px;
+  border: 1px solid #f06f9c;
+  background-color: #f7e9ef;
+}
+#login .container #login-row #login-column #login-box #login-form {
+  padding: 20px;
+}
+#login .container #login-row #login-column #login-box #login-form #register-link {
+  margin-top: -85px;
+}
+.text-info {
+    color: #0e0106da!important;
+}
+.btn-info {
+    color: #fff;
+    background-color: #fc6c9a;
+    border-color: rgb(250, 107, 181);
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{!-- <div class="container-fluid">
+    <div class="sub-container">
+        <div class="inner">
+            <form action="/adminlogin/submit" method="post">
+                <h4 class="text-center">Admin-Login</h4>
+            
+                <br>
+                <label>Username</label>
+                <input required="" title="please enter a valid email" class="form-control" type="text" name="email">
+                <span class="error" id="emailErr"></span><br>
+                <label>Password</label>
+                <input class="form-control" title="password should contain atleast 6 character" pattern="^.{6,}$"
+                        required="" type="password" name="password" >
+                <span class="error" id="passwordErr"></span><br>        
+                <button class="cust-btn mt-2">Submit</button>
+                <br>
+                <span class="text-danger">{{error}}</span>
+            </form>
+        </div>
+    </div>
+</div> --}}

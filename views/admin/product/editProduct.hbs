@@ -1,0 +1,155 @@
+<div class="col-12">
+    <div class="row">
+        <div class="col-sm-8 m-auto">
+            <form class="theme-form theme-form-2 mega-form" action="/admin/product/edit/{{productDetails._id}}" method="post" enctype="multipart/form-data">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-header-2">
+                            <h5>Edit Product</h5>
+                        </div>
+
+                        <div class="mb-4 row align-items-center">
+                            <label class="form-label-title col-sm-3 mb-0">Product
+                                Name</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" type="text"
+                                    placeholder="Product Name" name="name" value="{{productDetails.name}}" title="Please enter a valid name" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-4 row align-items-center">
+                            <label
+                                class="col-sm-3 col-form-label form-label-title">Category</label>
+                            <div class="col-sm-9">
+                                <select class="js-example-basic-single w-100" name="category_id" value="{{productDetails.category_id}}">
+                                    <option disabled>Category Menu</option>
+                                    {{#each categories}}
+                                        <option value="{{_id}}">{{name}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4 row align-items-center">
+                            <label class="col-sm-3 col-form-label form-label-title">Unit</label>
+                            <div class="col-sm-9">
+                                <input
+                                name="unit"
+                                placeholder="unit"
+                                value="{{productDetails.unit}}"
+                                class="form-control"
+                                type="text"
+                                />
+                            </div>
+                        </div>
+                        <div class="mb-4 row align-items-center">
+                            <label class="col-sm-3 form-label-title">Price</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" type="number" value="{{productDetails.price}}" required name="price" placeholder="0">
+                            </div>
+                        </div>
+                        <div class="mb-4 row align-items-center">
+                            <label class="col-sm-3 form-label-title">Description</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" type="text" value="{{productDetails.descrption}}" placeholder="Description" name="description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+
+                 <div class="card">
+                    <div class="card-body">
+                        <div class="card-header-2">
+                            <h5>Add Product Images</h5>
+                        </div>
+
+                        <div class="mb-4 row align-items-center">
+                            <label
+                                class="col-sm-3 col-form-label form-label-title">Images</label>
+                            <div class="col-sm-9">
+                                <div class="row row-cols-xl-8 row-cols-md-8 row-cols-sm-3 row-cols-2 g-sm-3 g-2 media-library-sec ratio_square">
+                                {{#each productDetails.images}}
+                                    <div>
+                                        <div class="library-box">
+                                            <div>
+                                                <img src="/admin/images/products/{{this}}"
+                                                    class="img-fluid bg-img bg_size_content" id="listImage" alt="" style="height: 100px; margin-top: 20px; margin-bottom: 20px;" multiple>
+                                            </div>
+                                            <div class="dropdown">
+                                                <a class="" href="#" role="button" id="dropdownMenuLink"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="ri-more-fill"></i>
+                                                </a>
+
+                                                <ul class="dropdown-menu dropdown-menu-end"
+                                                    aria-labelledby="dropdownMenuLink">
+                                                    <li onclick="deleteImage(this)"><a class="dropdown-item d-flex align-items-center"
+                                                            href="#"><i class="ri-delete-bin-line me-2"></i>Delete</a>
+                                                    </li>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {{/each}}
+                                </div>
+                                    {{!-- <img src="/admin/images/products/{{this}}" alt="" id="loadImage" style="height: 100px; margin-top: 20px; margin-bottom: 20px;"> --}}
+                                
+                                <input class="form-control form-choose" type="file" id="formFile" name="product_images" multiple>
+                            </div>
+                        </div>
+                        <div class="mb-4 row align-items-center">
+                            <label
+                                class="col-sm-3 col-form-label form-label-title">Thumbnail Image</label>
+                            <div class="col-sm-9">
+                                <img src="/admin/images/products/{{productDetails.thumbnail_image}}" alt="" id="loadImage" style="height: 100px; margin-top: 20px; margin-bottom: 20px;">
+                                <input type='file' name='thumbnail_image' id='thumbnail_image' class='form-control' id="formFile">
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <button class="align-items-center btn btn-theme" type="submit"><i data-feather="plus-square"></i>Update Product</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    
+</style>
+<script>
+	function readURL(input,name) {
+
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+            if(name == 'thumbnail_image'){
+                reader.onload = function(e) {
+                    $('#loadImage').attr('src', e.target.result);
+                }
+            }else{
+                reader.onload = function(e) {
+                    $('#listImage').attr('src', e.target.result);
+                }
+            }
+			
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	$("#thumbnail_image").change(function() {
+		readURL(this,'thumbnail_image');
+	});
+
+    $("#product_images").change(function() {
+		readURL(this,'product_images');
+	});
+
+    function deleteImage(image){
+         var fullPath = document.getElementById("listImage").src;
+         alert(fullPath)
+        var filename = fullPath.split("/").pop();
+        
+    }
+</script>

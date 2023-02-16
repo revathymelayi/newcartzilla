@@ -1,0 +1,66 @@
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="title-header option-title">
+                <h5>All Users</h5>
+            </div>
+
+            <div class="table-responsive table-product">
+                <table class="table all-package theme-table" id="table_id">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {{#each users}}
+                            <tr>
+                                <td>
+                                    <div class="user-name">
+                                        <span>{{first_name}}</span>
+                                        <span>{{last_name}}</span>
+                                    </div>
+                                </td>
+
+                                <td>+ 91 {{phone}}</td>
+
+                                <td>{{email}}</td>
+                                
+                                <td style="text-align: -webkit-center;">
+                                    {{#if status}}
+                                        <button type="button" style="background-color: red !important;" onclick="blockUser('{{_id}}')" class="btn btn-success btn-sm">Block</button>
+                                    {{else}}
+                                        <button type="button" class="btn btn-theme btn-sm" onclick="blockUser('{{_id}}')">Unblock</button>
+                                    {{/if}}
+                                </td>
+
+                                
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+        function blockUser(user_id){
+        $.ajax({
+            
+            url     :'/admin/user/block/'+user_id,
+            type    :'get',
+            beforeSend: function (request) {
+                return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+            },
+            success :function(response){
+                document.location.href='/admin/users';
+            }
+        })
+    } 
+</script>

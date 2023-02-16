@@ -1,0 +1,45 @@
+<table id="example" class="display nowrap" style="width:100%">
+    <thead>
+        <tr>
+            <th>OrderId</th>
+            <th>User</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Payment Mode</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each salesReport}}
+            <tr>
+                <td>#{{orderId}}</td>
+                <td>{{userName}}</td>
+                <td>{{date}}</td>
+                <td>{{status}}</td>
+                <td>{{payment_method}}</td>
+                <td>₹ {{total}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>OrderId</th>
+            <th>User</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Payment Method</th>
+            <th>₹ {{total}}</th>
+        </tr>
+    </tfoot>
+</table>
+
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable( {
+            dom: 'Bfrtip',
+            buttons: [
+                'csv', 'excel', 'pdf', 'print'
+            ]
+        } );
+    } );
+</script>

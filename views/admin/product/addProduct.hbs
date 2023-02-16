@@ -1,0 +1,129 @@
+<div class="col-12">
+  <div class="row">
+    <div class="col-sm-8 m-auto">
+      <form
+        class="theme-form theme-form-2 mega-form"
+        action="/admin/add/product"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <div class="card">
+          <div class="card-body">
+            <div class="card-header-2">
+              <h5>Add New Product</h5>
+            </div>
+
+            <div class="mb-4 row align-items-center">
+              <label class="form-label-title col-sm-3 mb-0">Product Name</label>
+              <div class="col-sm-9">
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Product Name"
+                  name="name"
+                  title="Please enter a valid name"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="mb-4 row align-items-center">
+              <label
+                class="col-sm-3 col-form-label form-label-title"
+              >Category</label>
+              <div class="col-sm-9">
+                <select
+                  class="js-example-basic-single w-100"
+                  name="category_id"
+                >
+                  <option disabled>Category Menu</option>
+                  {{#each categories}}
+                    <option value="{{_id}}">{{name}}</option>
+                  {{/each}}
+                </select>
+              </div>
+            </div>
+
+            <div class="mb-4 row align-items-center">
+              <label
+                class="col-sm-3 col-form-label form-label-title"
+              >Quantity</label>
+              <div class="col-sm-9">
+                <input
+                  name="unit"
+                  placeholder="unit"
+                  value="{{Quantity}}"
+                  class="form-control"
+                  type="text"
+                />
+
+              </div>
+            </div>
+            <div class="mb-4 row align-items-center">
+              <label class="col-sm-3 form-label-title">Price</label>
+              <div class="col-sm-9">
+                <input
+                  class="form-control"
+                  type="number"
+                  required
+                  name="price"
+                  placeholder="0"
+                />
+              </div>
+            </div>
+            <div class="mb-4 row align-items-center">
+              <label class="col-sm-3 form-label-title">Description</label>
+              <div class="col-sm-9">
+                <textarea
+                  class="form-control"
+                  type="text"
+                  placeholder="Description"
+                  name="description"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="card-header-2">
+              <h5>Add Product Images</h5>
+            </div>
+
+            <div class="mb-4 row align-items-center">
+              <label
+                class="col-sm-3 col-form-label form-label-title"
+              >Images</label>
+              <div class="col-sm-9">
+                <input
+                  class="form-control form-choose"
+                  type="file"
+                  id="formFile"
+                  name="product_images"
+                  multiple
+                />
+              </div>
+            </div>
+            <div class="mb-4 row align-items-center">
+              <label class="col-sm-3 col-form-label form-label-title">Thumbnail
+                Image</label>
+              <div class="col-sm-9">
+                <input
+                  class="form-control form-choose"
+                  required
+                  name="thumbnail_image"
+                  type="file"
+                  id="formFile"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="align-items-center btn btn-theme" type="submit"><i
+            data-feather="plus-square"
+          ></i>Update Product</button>
+      </form>
+    </div>
+  </div>
+</div>

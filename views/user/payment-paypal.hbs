@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+   <input type="text" hidden="" value="{{total}}" id="total">
+  <div class="d-flex justify-content-center p-4" id="paypal-button-container"></div>
+
+   
+  <!-- Replace "test" with your own sandbox Business account app client ID -->
+  <!-- Set up a container element for the button -->
+  <script src="https://www.paypal.com/sdk/js?client-id=AeV4jxCSgC8GXYkR1b-1LS3lv-2sCZxEqi3qc7CJ4zRVZbi9wJSJrK9bjnCvOoI8Xv8YIuGLVPHN1Mou"></script>
+  <script>
+    const amount=document.getElementById('total').value
+    paypal.Buttons({
+      // Sets up the transaction when a payment button is clicked
+      createOrder: (data, actions) => {
+        return actions.order.create({
+          purchase_units: [{
+            amount: {
+              value: amount// Can also reference a variable or function
+            }
+          }]
+        });
+      },
+      // Finalize the transaction after payer approval
+      onApprove: (data, actions) => {
+        return actions.order.capture().then(function(orderData) {
+          // Successful capture! For dev/demo purposes:
+          console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+          const transaction = orderData.purchase_units[0].payments.captures[0];
+          {{!-- alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`); --}}
+          placeOrder()
+          // When ready to go live, remove the alert and show a success message within this page. For example:
+          // const element = document.getElementById('paypal-button-container');
+          // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+          // Or go to another URL:  actions.redirect('thank_you.html');
+        });
+      }
+    }).render('#paypal-button-container');
+
+  async  function placeOrder(){
+    const data={
+      payment_method:'Paypal'
+    }
+       const orderplacement = await fetch('/place-order',{
+              method :'post',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body:JSON.stringify(data)
+          })
+          const res=await orderplacement.json()
+           if(res=="success"){
+              Swal.fire({
+                  title: 'Success',
+                  text: "Item orderd successfully !",
+                  icon: 'success',
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'OK',
+                  timer: 3000
+              }).then((res)=>{
+                window.location.href ='/orders'
+              })
+             } else {
+              Swal.fire({
+                  title: 'Something went wrong',
+                  text: "something went wrong !",
+                  icon: 'success',
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'OK',
+                  timer: 3000
+              })
+             }
+    }
+
+
+  </script>
+</body>
+</html>

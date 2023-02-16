@@ -1,0 +1,195 @@
+<div class="page-title-overlap bg-dark pt-4">
+        <div class="container d-lg-flex justify-content-between py-2 py-lg-3">
+          <div class="order-lg-2 mb-3 mb-lg-0 pt-lg-2">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">
+                <li class="breadcrumb-item"><a class="text-nowrap" href="index.html"><i class="ci-home"></i>Home</a></li>
+                <li class="breadcrumb-item text-nowrap"><a href="#">Shop</a>
+                </li>
+                <li class="breadcrumb-item text-nowrap active" aria-current="page"></li>
+              </ol>
+            </nav>
+          </div>
+          
+          <div class="order-lg-1 pe-lg-4 text-center text-lg-start">
+            {{!-- <h1 class="h3 text-light mb-0">{{name}}</h1> --}}
+          </div>
+          
+        </div>
+      </div>
+    <div class="container pb-5 mb-2 mb-md-4">
+        <div class="row">
+          <!-- Sidebar-->
+          <aside class="col-lg-4">
+            <!-- Sidebar-->
+            <div class="offcanvas offcanvas-collapse bg-white w-100 rounded-3 shadow-lg py-1" id="shop-sidebar" style="max-width: 22rem;">
+              <div class="offcanvas-header align-items-center shadow-sm">
+                <h2 class="h5 mb-0">Filters</h2>
+                <button class="btn-close ms-auto" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <div class="offcanvas-body py-grid-gutter px-lg-grid-gutter">
+                <!-- Categories-->
+                <div class="widget widget-categories mb-4 pb-4 border-bottom">
+                  <h3 class="widget-title">Categories</h3>
+                  {{#each categories}}
+                  <div class="accordion mt-n1" id="shop-categories">
+                    
+                   
+                    
+                   
+                    
+                   
+                    <!-- Sunglasses-->
+                    <div class="accordion-item">
+                      <h3 class="accordion-header"><a class="accordion-button collapsed" href="#" role="button"  aria-controls="sunglasses">{{name}}</a></h3>
+                      <div class="collapse" id="sunglasses" data-bs-parent="#shop-categories">
+                        
+                      </div>
+                    </div>
+                    
+                   
+                    
+                   
+                  </div>
+                  {{/each}}
+                </div>
+                
+              
+                
+               
+                <!-- Filter by Color-->
+                <div class="widget">
+                  <h3 class="widget-title">Color</h3>
+                  <div class="d-flex flex-wrap">
+                    <div class="form-check form-option text-center mb-2 mx-1" style="width: 4rem;">
+                      <input class="form-check-input" type="checkbox" id="color-blue-gray">
+                      <label class="form-option-label rounded-circle" for="color-blue-gray"><span class="form-option-color rounded-circle" style="background-color: #b3c8db;"></span></label>
+                      <label class="d-block fs-xs text-muted mt-n1" for="color-blue-gray">Blue-gray</label>
+                    </div>
+                    <div class="form-check form-option text-center mb-2 mx-1" style="width: 4rem;">
+                      <input class="form-check-input" type="checkbox" id="color-burgundy">
+                      <label class="form-option-label rounded-circle" for="color-burgundy"><span class="form-option-color rounded-circle" style="background-color: #ca7295;"></span></label>
+                      <label class="d-block fs-xs text-muted mt-n1" for="color-burgundy">Burgundy</label>
+                    </div>
+                    <div class="form-check form-option text-center mb-2 mx-1" style="width: 4rem;">
+                      <input class="form-check-input" type="checkbox" id="color-teal">
+                      <label class="form-option-label rounded-circle" for="color-teal"><span class="form-option-color rounded-circle" style="background-color: #91c2c3;"></span></label>
+                      <label class="d-block fs-xs text-muted mt-n1" for="color-teal">Teal</label>
+                    </div>
+                    <div class="form-check form-option text-center mb-2 mx-1" style="width: 4rem;">
+                      <input class="form-check-input" type="checkbox" id="color-brown">
+                      <label class="form-option-label rounded-circle" for="color-brown"><span class="form-option-color rounded-circle" style="background-color: #9a8480;"></span></label>
+                      <label class="d-block fs-xs text-muted mt-n1" for="color-brown">Brown</label>
+                    </div>
+                    <div class="form-check form-option text-center mb-2 mx-1" style="width: 4rem;">
+                      <input class="form-check-input" type="checkbox" id="color-coral-red">
+                      <label class="form-option-label rounded-circle" for="color-coral-red"><span class="form-option-color rounded-circle" style="background-color: #ff7072;"></span></label>
+                      <label class="d-block fs-xs text-muted mt-n1" for="color-coral-red">Coral red</label>
+                    </div>
+                    <div class="form-check form-option text-center mb-2 mx-1" style="width: 4rem;">
+                      <input class="form-check-input" type="checkbox" id="color-navy">
+                      <label class="form-option-label rounded-circle" for="color-navy"><span class="form-option-color rounded-circle" style="background-color: #696dc8;"></span></label>
+                      <label class="d-block fs-xs text-muted mt-n1" for="color-navy">Navy</label>
+                    </div>
+                    <div class="form-check form-option text-center mb-2 mx-1" style="width: 4rem;">
+                      <input class="form-check-input" type="checkbox" id="color-charcoal">
+                      <label class="form-option-label rounded-circle" for="color-charcoal"><span class="form-option-color rounded-circle" style="background-color: #4e4d4d;"></span></label>
+                      <label class="d-block fs-xs text-muted mt-n1" for="color-charcoal">Charcoal</label>
+                    </div>
+                    <div class="form-check form-option text-center mb-2 mx-1" style="width: 4rem;">
+                      <input class="form-check-input" type="checkbox" id="color-sky-blue">
+                      <label class="form-option-label rounded-circle" for="color-sky-blue"><span class="form-option-color rounded-circle" style="background-color: #8bcdf5;"></span></label>
+                      <label class="d-block fs-xs text-muted mt-n1" for="color-sky-blue">Sky blue</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </aside>
+          <!-- Content  -->
+          <section class="col-lg-8">
+            <!-- Toolbar-->
+            <div class="d-flex justify-content-center justify-content-sm-between align-items-center pt-2 pb-4 pb-sm-5">
+              <div class="d-flex flex-wrap">
+                {{!-- <div class="d-flex align-items-center flex-nowrap me-3 me-sm-4 pb-3">
+                  <label class="text-light opacity-75 text-nowrap fs-sm me-2 d-none d-sm-block" for="sorting">Sort by:</label>
+                  <select class="form-select" id="sorting">
+                    <option>Popularity</option>
+                    <option>Low - Hight Price</option>
+                    <option>High - Low Price</option>
+                    <option>Average Rating</option>
+                    <option>A - Z Order</option>
+                    <option>Z - A Order</option>
+                  </select><span class="fs-sm text-light opacity-75 text-nowrap ms-2 d-none d-md-block">of 287 products</span>
+                </div> --}}
+              </div>
+              {{!-- <div class="d-flex pb-3"><a class="nav-link-style nav-link-light me-3" href="#"><i class="ci-arrow-left"></i></a><span class="fs-md text-light">1 / 5</span><a class="nav-link-style nav-link-light ms-3" href="#"><i class="ci-arrow-right"></i></a></div> --}}
+              <div class="d-none d-sm-flex pb-3"><a class="btn btn-icon nav-link-style nav-link-light" href="shop-list-ls.html"></i></a></div>
+            </div>
+            <!-- Products grid-->
+            <div class="row mx-n2">
+              <!-- Product-->
+              {{#each products}}
+              <div class="col-md-4 col-sm-6 px-2 mb-4">
+                <div class="card product-card">
+                  <button class="btn-wishlist btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="ci-heart"></i></button><a class="card-img-top d-block overflow-hidden" href="/product/{{name}}/{{_id}}"><img src="/admin/images/products/{{thumbnail_image}}" alt="Product"></a>
+                  <div class="card-body py-2"><a class="product-meta d-block fs-xs pb-1" href="#"></a>
+                    <h3 class="product-title fs-sm"><a href="/product/{{name}}/{{_id}}"></a>{{name}}</h3>
+                    <div class="d-flex justify-content-between">
+                      <div class="product-price"><span class="text-accent">Rs.{{price}}<small>.00</small></span></div>
+                      <div class="star-rating"><i class="star-rating-icon ci-star-filled active"></i><i class="star-rating-icon ci-star-filled active"></i><i class="star-rating-icon ci-star-filled active"></i><i class="star-rating-icon ci-star-filled active"></i><i class="star-rating-icon ci-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body card-body-hidden">
+                    {{!-- <div class="text-center pb-2">
+                      <div class="form-check form-option form-check-inline mb-2">
+                        <input class="form-check-input" type="radio" name="size1" id="s-75">
+                        <label class="form-option-label" for="s-75">7.5</label>
+                      </div>
+                      <div class="form-check form-option form-check-inline mb-2">
+                        <input class="form-check-input" type="radio" name="size1" id="s-80" checked>
+                        <label class="form-option-label" for="s-80">8</label>
+                      </div>
+                      <div class="form-check form-option form-check-inline mb-2">
+                        <input class="form-check-input" type="radio" name="size1" id="s-85">
+                        <label class="form-option-label" for="s-85">8.5</label>
+                      </div>
+                      <div class="form-check form-option form-check-inline mb-2">
+                        <input class="form-check-input" type="radio" name="size1" id="s-90">
+                        <label class="form-option-label" for="s-90">9</label>
+                      </div>
+                    </div> --}}
+                    {{!-- <button class="btn btn-primary btn-sm d-block w-100 mb-2" href="/product/{{name}}/{{_id}}" type="button"><i class="ci-cart fs-sm me-1"></i>Add to Cart</button>
+                    <div class="text-center"><a class="nav-link-style fs-ms" href="/product/{{name}}/{{_id}}" data-bs-toggle="modal"><i class="ci-eye align-middle me-1"></i>Quick view</a></div> --}}
+                  </div>
+                </div>
+                <hr class="d-sm-none">
+              </div>
+              {{/each}}
+              
+             
+            
+              
+              
+              
+              
+              
+             
+            </div>
+            <!-- Banner-->
+            <div class="py-sm-2">
+              <div class="d-sm-flex justify-content-between align-items-center bg-secondary overflow-hidden mb-4 rounded-3">
+                <div class="py-4 my-2 my-md-0 py-md-5 px-4 ms-md-3 text-center text-sm-start">
+                  <h4 class="fs-lg fw-light mb-2">Converse All Star</h4>
+                  <h3 class="mb-4">Make Your Day Comfortable</h3><a class="btn btn-primary btn-shadow btn-sm" href="#">Shop Now</a>
+                </div>
+              </div>
+            </div>
+            
+           
+        
+            
+          </section>
+        </div>
+      </div>

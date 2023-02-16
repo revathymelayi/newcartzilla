@@ -1,0 +1,218 @@
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            {{#if message}}
+                <div class="alert alert-success" role="alert">
+                    <strong>Success! </strong> {{message}}
+                </div>
+            {{/if}}
+            {{#if error}}
+                <div class="alert alert-danger" role="alert">
+                    <strong>Error! </strong> {{error}}
+                </div>
+            {{/if}}
+            <div class="title-header option-title">
+                <h5>Coupon List</h5>
+                <div class="right-options">
+                    <ul>
+                        <li>
+                            <a class="btn btn-solid" href="/admin/create/coupon">Add Coupon</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div class="table-responsive">
+                    <table class="table all-package coupon-list-table table-hover theme-table"
+                        id="table_id">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Code</th>
+                                <th>Discount</th>
+                                <th>Expiry Date</th>
+                                <th>Status</th>
+                                <th>Option</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {{#each coupons}}
+                                <tr>
+                                    <td>{{title}}</td>
+                                    <td>{{code}}</td>
+                                    <td class="theme-color">{{discount}} %</td>
+                                    <td class="theme-color">{{date}}</td>
+                                    <td class="menu-status">
+                                        {{#if status}}
+                                            <button type="button" style="background-color: red !important;" onclick="deactivate('{{title}}','{{_id}}')" class="btn btn-success btn-sm">Deactivate</button>
+                                        {{else}}
+                                            <button type="button" class="btn btn-theme btn-sm" onclick="deactivate('{{title}}','{{_id}}')">Activate</button>
+                                        {{/if}}
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            <li>
+                                                <a href="javascript:void(0)" onclick="editCoupon('{{_id}}')">
+                                                    <i class="ri-pencil-line"></i>
+                                                </a>
+                                            </li>   
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Pagination End -->
+    </div>
+    <div class="modal fade theme-modal remove-coupon" id="couponModalToggle" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header d-block text-center">
+                    <h5 class="modal-title w-100" id="exampleModalLabel22">Are You Sure ?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="remove-box">
+                        <p>You want to block/unblock <span id="name"></span></p>
+                        <input type="hidden" id="id">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-animation btn-md fw-bold"
+                        data-bs-target="#couponModalToggle" data-bs-toggle="modal"
+                        data-bs-dismiss="modal" onclick="confirm()">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Coupon</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="#">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <input type="hidden" name="id" id="couponId">
+                            <label for="firstName" class="form-label">Coupon Title</label>
+                            <input type="text" required="" class="form-control" id="title" name="title" aria-describedby="firstName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">Coupon Code</label>
+                            <input type="text" required="" class="form-control" id="code" name="code" aria-describedby="firstName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="emailAdress" class="form-label">Discount</label>
+                            <input type="number" required="" class="form-control" id="discount" name="discount" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="emailAdress" class="form-label">Expiry Date</label>
+                            <input type="date" required="" class="form-control" id="date" name="date" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                             <input name="status" id="status" class="checkbox_animated check-it"
+                                type="checkbox">
+                            <label class="form-label-title col-md-4 mb-0">
+                                Enable the Coupon</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" type="button" onclick="updateCoupon()">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function deactivate(name,id){
+        document.getElementById('id').value  = id
+        document.getElementById('name').innerText = name
+        $('#couponModalToggle').modal('show')
+    }
+
+    function confirm(){
+        id     = document.getElementById('id').value
+        $.ajax({
+            async   :true,
+            url     :'/admin/coupon/activate/'+id,
+            type    :'put',
+            beforeSend: function (request) {
+                return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+            },
+            success :function(response){
+                if(response == 'success')
+                document.location.href='/admin/coupons';
+            }
+        })
+    }
+
+    async function editCoupon(id){
+        let coupon = await fetch('/admin/coupon/edit/'+id, {
+            method: 'get',
+        }) 
+        let response = await coupon.json()
+        const res = response.editCoupon
+        document.getElementById('couponId').value= res._id
+        document.getElementById('title').value = res.title
+        document.getElementById('code').value = res.code
+        document.getElementById('discount').value = res.discount
+        document.getElementById('date').value = res.date
+        document.getElementById('status').checked = res.status
+        $('#editModal').modal('show')
+    }
+
+    async function updateCoupon(){
+        const data ={
+            title : document.getElementById('title').value,
+            code : document.getElementById('code').value,
+            discount : document.getElementById('discount').value,
+            date : document.getElementById('date').value,
+            status : document.getElementById('status').value,
+            id : document.getElementById('couponId').value,
+        }
+        console.log(data)
+        let update = await fetch('/admin/coupon/update/'+data.id, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({data:data}),
+        }) 
+        let response = await update.json()
+         $('#editModal').modal('hide')
+        if(response == 'success'){
+            Swal.fire({
+                title: 'Success',
+                text: "Coupon Updated Successfully !",
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'OK',
+                timer: 3000
+            }).then(()=>{
+                document.location.href = '/admin/coupons'
+              })
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please signin to add the item to the cart!',
+            })
+        }
+    }
+</script>
+

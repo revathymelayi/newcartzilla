@@ -1,0 +1,39 @@
+<table id="example" class="display nowrap" style="width:100%">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each topSaleProducts}}
+            <tr>
+                <td>{{name}}</td>
+                <td>{{quantity}}</td>
+                <td>{{price}}</td>
+                <td>{{total}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+    </tfoot>
+</table>
+
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable( {
+            dom: 'Bfrtip',
+            buttons: [
+                'csv', 'excel', 'pdf', 'print'
+            ]
+        } );
+    } );
+</script>

@@ -1,0 +1,44 @@
+<div class="col-12">
+    <div class="row">
+        <div class="col-sm-8 m-auto">
+            <div class="card">
+                <div class="card-body">
+                     {{#if error}}
+                        <span id = "message" style="color:red">{{error}}</span> <br><br>  
+                    {{/if}}
+                    <div class="card-header-2">
+                        <h5>Add Category</h5>
+                    </div>
+                    <form action="/admin/add/category" method="post" enctype="multipart/form-data">
+                        <div class="mb-4 row align-items-center">
+                            <label class="form-label-title col-sm-3 mb-0">Category Name</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" required pattern="(^[A-Za-z]+$)$" title="Please enter a valid name" type="text"
+                                    placeholder="Category Name" name="name" id="name">
+                            </div>
+                        </div>
+                        <div class="mb-4 row align-items-center">
+                            <label
+                                class="col-sm-3 col-form-label form-label-title">Images</label>
+                            <div class="col-sm-9">
+                                <input class="form-control form-choose" name="category_image" type="file"
+                                    id="formFile" multiple required>
+                            </div>
+                        </div>
+                        <div class="mb-4 row align-items-center">
+                            <label class="form-label-title col-sm-3 mb-0">Category Offer</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" type="number" min="0" max="100"
+                                    placeholder="0" name="offer" id="offer">
+                            </div>
+                        </div>
+                        <button class="align-items-center btn btn-theme" type="submit"><i data-feather="plus-square"></i>Add Category</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+</script>

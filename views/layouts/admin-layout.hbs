@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description"
+        content="Cartzilla admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin with unlimited possibilities.">
+    <meta name="keywords"
+        content="Cartzilla , dashboard , flat admin , responsive admin , web app">
+    <meta name="author" content="pixelstrap">
+    <link rel="icon" href="/admin/images/favicon-32x32.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/admin/images/favicon-32x32.png" type="image/x-icon">
+    <title>{{title}}</title>
+    <!-- Google font-->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+        rel="stylesheet">
+
+    <!-- Linear Icon css -->
+    <link rel="stylesheet" href="/admin/css/linearicon.css">
+
+    <!-- fontawesome css -->
+    <link rel="stylesheet" type="text/css" href="/admin/css/vendors/font-awesome.css">
+
+    <!-- Themify icon css-->
+    <link rel="stylesheet" type="text/css" href="/admin/css/vendors/themify.css">
+
+    <!-- ratio css -->
+    <link rel="stylesheet" type="text/css" href="/admin/css/ratio.css">
+
+    <!-- remixicon css -->
+    <link rel="stylesheet" type="text/css" href="/admin/css/remixicon.css">
+
+    <!-- Feather icon css-->
+    <link rel="stylesheet" type="text/css" href="/admin/css/vendors/feather-icon.css">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" type="text/css" href="/admin/css/vendors/scrollbar.css">
+    <link rel="stylesheet" type="text/css" href="/admin/css/vendors/animate.css">
+
+    <!-- Bootstrap css-->
+    <link rel="stylesheet" type="text/css" href="/admin/css/vendors/bootstrap.css">
+
+    <!-- vector map css -->
+    <link rel="stylesheet" type="text/css" href="/admin/css/vector-map.css">
+
+    <!-- Slick Slider Css -->
+    <link rel="stylesheet" href="/admin/css/vendors/slick.css">
+
+    <!-- App css -->
+    <link rel="stylesheet" type="text/css" href="/admin/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" ></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+</head>
+    
+<body>
+    <div class="page-wrapper compact-wrapper" id="pageWrapper">
+        <!-- Page Header Start-->
+            {{> admin-header}}
+        <!-- Page Header Ends-->
+        <!-- Page Body Start-->
+        <div class="page-body-wrapper">
+            <!-- Page Sidebar Start-->
+            {{> sidebar}}
+            <!-- Page Sidebar Ends-->
+            <!-- index body start -->
+            <div class="page-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        {{{body}}}
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" ></script>
+    <!-- latest js -->
+    <script src="/admin/js/jquery-3.6.0.min.js"></script>
+
+    {{!-- Datatable --}}
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.3.4/js/dataTables.buttons.min.js"></script>
+
+    <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.print.min.js"></script>
+    
+
+    <!-- Bootstrap js -->
+    <script src="/admin/js/bootstrap/bootstrap.bundle.min.js"></script>
+
+    <!-- feather icon js -->
+    <script src="/admin/js/icons/feather-icon/feather.min.js"></script>
+    <script src="/admin/js/icons/feather-icon/feather-icon.js"></script>
+
+    <!-- scrollbar simplebar js -->
+    <script src="/admin/js/scrollbar/simplebar.js"></script>
+    <script src="/admin/js/scrollbar/custom.js"></script>
+
+    <!-- Sidebar jquery -->
+    <script src="/admin/js/config.js"></script>
+
+    <!-- tooltip init js -->
+    <script src="/admin/js/tooltip-init.js"></script>
+    
+    <!-- Plugins JS -->
+    <script src="/admin/js/sidebar-menu.js"></script>
+    <script src="/admin/js/notify/bootstrap-notify.min.js"></script>
+    {{!-- <script src="/admin/js/notify/index.js"></script> --}}
+
+    <!-- Apexchar js -->
+    {{!-- <script src="/admin/js/chart/apex-chart/apex-chart1.js"></script>
+    <script src="/admin/js/chart/apex-chart/moment.min.js"></script> --}}
+    <script src="/admin/js/chart/apex-chart/apex-chart.js"></script>
+    {{!-- <script src="/admin/js/chart/apex-chart/stock-prices.js"></script> --}}
+    <script src="/admin/js/chart/apex-chart/chart-custom1.js"></script>
+     <!-- Bootstrap js -->
+    <script src="/admin/js/bootstrap/bootstrap.bundle.min.js"></script>
+
+
+    <!-- slick slider js -->
+     <script src="/admin/js/slick.min.js"></script>
+    <script src="/admin/js/custom-slick.js"></script> 
+
+    <!-- customizer js -->
+     <script src="/admin/js/customizer.js"></script> 
+
+    <!-- ratio js -->
+    <script src="/admin/js/ratio.js"></script> 
+
+    <!-- sidebar effect -->
+     <script src="/admin/js/sidebareffect.js"></script> 
+
+    <!-- Theme js -->
+     <script src="/admin/js/script.js"></script> 
+</body>
+</html>
