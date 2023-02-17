@@ -60,6 +60,7 @@ const createUser = async (req, res) => {
         phone: req.body.phone,
         status: 1,
         is_verified: 0,
+        wallet:0,
       });
 
       const userDetails = await user.save();

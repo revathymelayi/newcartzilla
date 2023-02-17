@@ -358,21 +358,10 @@ const addProductView = async (req, res) => {
   }
 };
 
-// const addProduct = async (req, res) => {
-//     try {
-//         if (req.file) {
-//             req.body.thumbnail_image = req.file.filename
-//         }
-//         req.body.status = 1
-//         const newProduct = await Product.insertMany(req.body)
-//         res.redirect('/admin/products')
-//     } catch (error) {
-//         console.log(error.message);
-//     }
-// }
+
 const addProduct = async (req, res) => {
   try {
-    console.log(req.body);
+    
     const thumbnail = req.files.thumbnail_image;
     req.body.images = req.files.product_images.map(function (obj) {
       return obj.filename;
@@ -414,7 +403,7 @@ const editProduct = async (req, res) => {
     }
     if (req.files.thumbnail_image) {
       const thumbnail = req.files.thumbnail_image;
-      req.body.thumbnail_image = req.file.filename;
+      req.body.thumbnail_image = thumbnail[0].filename;
     }
     const updateProduct = await Product.findOneAndUpdate(
       { _id: req.params.productId },

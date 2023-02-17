@@ -5,7 +5,8 @@ module.exports =async(sessionid)=>{
     if (sessionid) {
         isLogged = true
     }
-    const user = await User.findOne({ email: sessionid }).lean()
+    const user = await User.findOne({ email: sessionid },{ password:0, status: 0, is_verified: 0 }).lean()
+    
     const categories = await Category.find({ status: true }).lean()
     const cartCount = await User.aggregate([
         { $match: { email: sessionid } },
