@@ -15,7 +15,7 @@ const couponSchema = new Schema({
     required: true,
   },
   date: {
-    type: String,
+    type: Date,
     required: true,
   },
   user: [
