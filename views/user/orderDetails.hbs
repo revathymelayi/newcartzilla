@@ -220,7 +220,7 @@
             price: item.price
           }
         })
-         const data = {
+         {{!-- const data = {
           "currency": "INR",
           "marginTop": 25,
           "marginRight": 25,  
@@ -255,8 +255,8 @@
           "orderDate": date,
           "products": productArray,
           "bottomNotice": "Kindly pay your invoice within 15 days."
-        }; 
-        easyinvoice.createInvoice(data, function (result) {
+        };  --}}
+        easyinvoice.createInvoice({}, function (result) {
             // The response will contain a base64 encoded PDF file
             console.log('PDF base64 string: ', result.pdf);
             easyinvoice.download("invoice.pdf")
