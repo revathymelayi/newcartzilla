@@ -1,3 +1,37 @@
+<div class="mb-4 row align-items-center">
+  <div class="col-md-4 col-lg-4">
+    <label for="fromdate" class="form-label">From Date</label>
+    <input
+      class="form-control"
+      required=""
+      name="fromdate"
+      id="fromdate"
+      type="date"
+      value="{{fromDate}}"
+      data-bs-original-title=""
+      title=""
+    />
+  </div>
+  <div class="col-md-4 col-lg-4">
+    <label for="todate" class="form-label">To Date</label>
+    <input
+      class="form-control"
+      required=""
+      name="todate"
+      id="todate"
+      type="date"
+      value="{{toDate}}"
+      data-bs-original-title=""
+      title=""
+    />
+  </div>
+  <div class="col-md-4 col-lg-4">
+    <a
+      onclick="this.href='/admin/sales/report?fromdate=' + document.getElementById('fromdate').value+'&todate=' +document.getElementById('todate').value "
+    ><button type="button" class="btn btn-primary mt-4">Search</button></a>
+  </div>
+</div>
+
 <table id="example" class="display nowrap" style="width:100%">
     <thead>
         <tr>

@@ -119,7 +119,7 @@ const signin = async (req, res) => {
 
 const authenticate = async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.email ,status:true});
     if (user) {
       if (user.is_verified) {
         bcrypt.compare(req.body.password, user.password, (err, data) => {

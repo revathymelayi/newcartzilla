@@ -397,7 +397,7 @@
                     
                     <div class="mb-3 d-flex align-items-center">
                        
-                       <button class="btn btn-primary btn-shadow d-block w-100" href="/product/{{productName}}/{{_id}}" type="submit"><i class="ci-cart fs-lg me-2"></i>Add to Cart</button>
+                       <button class="btn btn-primary btn-shadow d-block w-100" onclick="addToCart('{{name}}','{{_id}}')" href="/product/{{productName}}/{{_id}}" type="submit"><i class="ci-cart fs-lg me-2"></i>Add to Cart</button>
                        {{#if error}}
                              <span id = "message" style="color:red">{{error}} </span> <br><br>  
                         {{/if}}
@@ -433,6 +433,31 @@
        
       </div>
 </main>
-
+<script>
+  function addToCart(name,id){
+        
+        $.ajax({
+            async   :true,
+            url     :'/product/'+name+'/'+id,
+            type    :'post',
+            
+            beforeSend: function (request) {
+                return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+            },
+            success :function(response){
+                if(response == 'success'){
+                    window.location.reload();
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Please signin to add the item to the cart!',
+                    })
+                }
+            }
+        })
+       
+    }
+</script>
 
 

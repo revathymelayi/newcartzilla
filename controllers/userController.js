@@ -107,7 +107,9 @@ const productDetails = async (req, res) => {
 /* ------------------------------- Add to cart ------------------------------ */
 const addToCart = async (req, res) => {
   try {
+    console.log(1234567);
     if (req.session.user) {
+      
       const addProductToCart = await User.updateOne(
         { email: req.session.user },
         {
@@ -116,12 +118,12 @@ const addToCart = async (req, res) => {
           },
         }
       );
-      res.redirect("/cart/view");
+      res.json("success");
     } else {
-      res.send("error");
+      res.json("error");
     }
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 };
 
@@ -635,7 +637,7 @@ const invoice = async (req, res) => {
     const order = await Order.findOne({ _id: req.params.orderId }).lean();
     const products = order.product
     const invoice = await Invoice.invoice.findOne({orderId:req.params.orderId})
-    // const invoiceDate = moment(invoice.date).format("Do MMMM YYYY");
+    //  const invoiceDate = moment(invoice.date).format("Do MMMM YYYY");
     res.json({
       products :products,
       invoice :invoice,

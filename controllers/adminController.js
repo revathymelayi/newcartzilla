@@ -135,26 +135,62 @@ const topSalesReport = async (req, res) => {
 };
 
 //sales report
+// const salesReport = async (req, res) => {
+//   try {
+//     const salesReport = await Order.find(
+//       {},
+//       {
+//         orderId: 1,
+//         userName: 1,
+//         status: 1,
+//         payment_method: 1,
+//         date: { $substr: ["$date", 0, 10] },
+//         total: 1,
+//       }
+//     ).sort({ total: 1 }).lean();
+//     const total = await Order.aggregate([
+//       { $group: { _id: null, total: { $sum: "$total" } } },
+//     ]);
+//     console.log(total);
+//     res.render("sales/sales-report", {
+//       salesReport: salesReport,
+//       total: total[0].total,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 const salesReport = async (req, res) => {
   try {
-    const salesReport = await Order.find(
-      {},
-      {
-        orderId: 1,
-        userName: 1,
-        status: 1,
-        payment_method: 1,
-        date: { $substr: ["$date", 0, 10] },
-        total: 1,
-      }
-    ).sort({ total: 1 }).lean();
-    const total = await Order.aggregate([
-      { $group: { _id: null, total: { $sum: "$total" } } },
-    ]);
-    console.log(total);
+    let { fromdate, todate } = req?.query ?? {};
+    let salesReport;
+    let total = 0
+
+    if (fromdate && todate) {
+      fromdate = new Date(fromdate);
+      todate = new Date(todate);
+
+      if (req?.query?.fromdate == req?.query?.todate && todate && fromdate)
+        todate.setDate(todate.getDate() + 1);
+
+      salesReport = await Order.find({
+        date: { $gte: fromdate, $lt: todate },
+      }).lean();
+      salesReport.map((item) => {
+        item.date = moment(item.date).format("Do MMMM YYYY");
+      });
+    } else {
+      salesReport = await Order.find({}).limit(10).lean();
+      salesReport.map((item)=>{
+        item.date = moment(item.date).format("Do MMMM YYYY");
+        total = total+item.total
+      })
+    }
     res.render("sales/sales-report", {
       salesReport: salesReport,
-      total: total[0].total,
+      total: total,
+      fromDate: fromdate,
+      toDate: todate,
     });
   } catch (error) {
     console.log(error);
@@ -358,21 +394,25 @@ const addProductView = async (req, res) => {
   }
 };
 
-
 const addProduct = async (req, res) => {
   try {
-    
-    const thumbnail = req.files.thumbnail_image;
-    req.body.images = req.files.product_images.map(function (obj) {
-      return obj.filename;
-    });
-    if (thumbnail) {
-      req.body.thumbnail_image = thumbnail[0].filename;
+    if (!req.error) {
+      req.body.images = req.files.product_images.map(function (obj) {
+        return obj.filename;
+      });
+      if (req.thumbnail_image) {
+        req.body.thumbnail_image = req.thumbnail_image;
+      }
+      req.body.status = 1;
+      const newProduct = await Product.insertMany(req.body);
+      res.redirect("/admin/products");
+    } else {
+      const categories = await Category.find({ status: true }).lean();
+      res.render("product/addProduct", {
+        productImgError: "Upload valid image",
+        categories: categories,
+      });
     }
-    req.body.status = 1;
-    const newProduct = await Product.insertMany(req.body);
-
-    res.redirect("/admin/products");
   } catch (error) {
     console.log(error.message);
   }
@@ -571,7 +611,7 @@ const listCoupons = async (req, res) => {
 const createCoupon = async (req, res) => {
   try {
     const checkCouponCode = await Coupon.find({ code: req.body.code });
-    console.log(checkCouponCode);
+    
     if (checkCouponCode.length == 0) {
       if (req.body.status) req.body.status = true;
       else req.body.status = false;
@@ -591,9 +631,11 @@ const createCouponView = async (req, res) => {
   try {
     const categories = await Category.find({ status: true }).lean();
     const coupons = await Coupon.find().lean();
+    const date = moment().format("yy-MM-DD");
     res.render("coupon/addCoupon", {
       categories: categories,
       coupons: coupons,
+      date:date,
     });
   } catch (error) {
     console.log(error);
@@ -625,15 +667,7 @@ const editCoupon = async (req, res) => {
   }
 };
 
-//  //dashboard
-//  const dashBoard =async(req,res)=>{
-//   try{
-//     res.render('dashboard/dashboard')
-//   }
-//   catch(error){
-//     console.log(error.message)
-//   }
-//  }
+
 
 //logout
 const logout = async (req, res, next) => {

@@ -220,10 +220,10 @@
             price: item.price
           }
         })
-        var data = {
+         const data = {
           "currency": "INR",
           "marginTop": 25,
-          "marginRight": 25,
+          "marginRight": 25,  
           "marginLeft": 25,
           "marginBottom": 25,
         //"logoExtension": "png", //only when logo is base64
@@ -241,9 +241,9 @@
           },
           "information": {
               // Invoice number
-              "number": result.invoice.invoiceId,
+              "number": 12345,
               // Invoice data
-              "date": result.invoiceDate,
+              "date": 10/02/23,
               // Invoice due date
           },
           "translate": {
@@ -251,11 +251,11 @@
             "product-total": coupon, // Defaults to 'Total'
             "total": total // Defaults to 'Total'
           },
-          "orderId": orderId,
+          "orderId": "1234",
           "orderDate": date,
           "products": productArray,
           "bottomNotice": "Kindly pay your invoice within 15 days."
-        };
+        }; 
         easyinvoice.createInvoice(data, function (result) {
             // The response will contain a base64 encoded PDF file
             console.log('PDF base64 string: ', result.pdf);

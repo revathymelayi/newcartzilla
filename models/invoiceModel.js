@@ -29,7 +29,7 @@ const invoiceSchema = new Schema({
 const invoice = mongoose.model('invoice',invoiceSchema)
 
 async function invoiceGeneration(userId,orderId) {
-    const invoiceNumber = 'FRHCRT-'+Math.floor(Math.random()*(9999-1000+1)+1000);
+    const invoiceNumber = 'CARTZ-'+Math.floor(Math.random()*(9999-1000+1)+1000);
     const data = {
         invoiceId : invoiceNumber,
         userId : userId,
