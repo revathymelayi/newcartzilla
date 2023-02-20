@@ -489,6 +489,7 @@ const wallet = async (req, res) => {
       wallet: true,
       userWallet: userWallet,
       walletTransaction: walletTransaction,
+      
     });
   } catch (error) {}
 };
@@ -518,6 +519,7 @@ const orderDetails = async (req, res) => {
       headerData: user,
       cartCount: user.cartCount,
       invoice:invoice,
+      categories: user.categories,
     });
   } catch (error) {
     console.log(error);
