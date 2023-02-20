@@ -13,7 +13,7 @@ const categoryModel = require("../models/categoryModel");
 
 /* ------------------------------- Home ------------------------------ */
 
-const userHome = async (req, res) => {
+const userHome = async (req, res,next) => {
  
   try {
     const user = await isLog(req.session.user);
@@ -37,8 +37,9 @@ const userHome = async (req, res) => {
       products: products,
       cartCount: user.cartCount,
     });
+    
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
@@ -107,7 +108,7 @@ const productDetails = async (req, res) => {
 /* ------------------------------- Add to cart ------------------------------ */
 const addToCart = async (req, res) => {
   try {
-    console.log(1234567);
+   
     if (req.session.user) {
       
       const addProductToCart = await User.updateOne(

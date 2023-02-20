@@ -2,8 +2,13 @@ const express = require("express");
 const userRoute = express();
 const logCheck = require("../middleware/userLog");
 const session = require("../config/session");
+const {errorHandler} = require("../config/errorHandler");
 userRoute.use(session);
 //Layouts
+
+
+
+
 
 const hbs = require("express-handlebars");
 userRoute.engine(
@@ -18,7 +23,7 @@ userRoute.engine(
 userRoute.set("views", "./views/user");
 const userController = require("../controllers/userController");
 //userhome
-userRoute.get("/", userController.userHome);
+userRoute.get("/", userController.userHome,errorHandler);
 userRoute.get("/product/:productName/:productId",userController.productDetails);
 userRoute.get('/category/:name/:id' , userController.showProduct)
 
