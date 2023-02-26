@@ -4256,7 +4256,7 @@
  }
  .card {
    --cz-card-spacer-y: 1.25rem;
-   --cz-card-spacer-x: 1.25rem;
+   --cz-card-spacer-x: 2.5rem;
    --cz-card-title-spacer-y: 0.75rem;
    --cz-card-border-width: 1px;
    --cz-card-border-color: rgba(0, 0, 0, 0.085);

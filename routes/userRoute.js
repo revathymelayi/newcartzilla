@@ -2,7 +2,7 @@ const express = require("express");
 const userRoute = express();
 const logCheck = require("../middleware/userLog");
 const session = require("../config/session");
-const {errorHandler} = require("../config/errorHandler");
+
 userRoute.use(session);
 //Layouts
 
@@ -23,7 +23,7 @@ userRoute.engine(
 userRoute.set("views", "./views/user");
 const userController = require("../controllers/userController");
 //userhome
-userRoute.get("/", userController.userHome,errorHandler);
+userRoute.get("/", userController.userHome);
 userRoute.get("/product/:productName/:productId",userController.productDetails);
 userRoute.get('/category/:name/:id' , userController.showProduct)
 
@@ -50,8 +50,10 @@ userRoute.post('/product/search',userController.searchProducts)
 userRoute.get("/profile-settings",logCheck.isUser,userController.profileSettings);
 userRoute.post("/profile-settings", logCheck.isUser,userController.updateProfileSettings);
 userRoute.get("/profile-address",logCheck.isUser,userController.profileAddresses);
-userRoute.get("/address/delete/:id",logCheck.isUser,userController.deleteAddress);
+userRoute.put("/address/delete/:id",logCheck.isUser,userController.deleteAddress);
 userRoute.post("/add/address", logCheck.isUser, userController.addAddress);
+userRoute.get("/edit/address/:id", logCheck.isUser, userController.editAddress);
+userRoute.post("/update/address/:id", logCheck.isUser, userController.updateAddress);
 //coupon
 userRoute.put('/redeem-coupon',logCheck.isUser,userController.redeemCoupon)
 //wallet

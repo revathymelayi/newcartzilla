@@ -37,6 +37,7 @@ async function invoiceGeneration(userId,orderId) {
         date : new Date().toISOString(),
         status : true,
     }
+    console.log(3456)
     const insertData = await invoice.insertMany(data)
     if(insertData)
         return insertData

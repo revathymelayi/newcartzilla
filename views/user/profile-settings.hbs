@@ -35,10 +35,15 @@
             <form action="/profile-settings" method="post">
               <div class="bg-secondary rounded-3 p-4 mb-4">
                 <div class="d-flex align-items-center"><img class="rounded" src="img/shop/account/avatar.jpg" width="90" alt="Susan Gardner">
+                 {{#each headerData}}
                   <div class="ps-3">
-                    <button class="btn btn-light btn-shadow btn-sm mb-2" type="button"><i class="ci-loading me-2"></i>Change profile pic</button>
-                    <div class="p mb-0 fs-ms text-muted">Upload JPG, GIF or PNG image. 300 x 300 required.</div>
+                    
+                    <div class="p mb-0 fs-ms text-muted">{{first_name}} {{last_name}}</div>
+                    
+                    <div class="p mb-0 fs-ms text-muted">{{email}}</div>
+                   
                   </div>
+                  {{/each}}
                 </div>
               </div>
               <div class="row gx-4 gy-3">

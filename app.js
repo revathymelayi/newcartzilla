@@ -9,6 +9,7 @@ const logRoute =require('./routes/logRoute');
 const adminloginRoute = require('./routes/adminloginRoute');
 const adminRoute =require('./routes/adminRoute')
 const nocache = require("nocache");
+const { notFound,errorHandler } = require("./middleware/errorHandling");
 
 app.use(nocache());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -22,10 +23,8 @@ app.use('/user',logRoute);
 app.use('/admin/login',adminloginRoute);
 app.use('/admin',adminRoute)
 
-
-
-
-
+app.use("*",notFound);
+app.use(errorHandler);
 
 
 app.listen(3000, function () {

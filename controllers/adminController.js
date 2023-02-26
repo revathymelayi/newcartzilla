@@ -35,7 +35,7 @@ const adminHome = async (req, res) => {
       { $match: { status: "Delivered" } },
       { $group: { _id: null, totalRevenue: { $sum: "$total" } } },
     ]);
-    console.log( totalRevenue)
+    
     const totalRefunds = await Order.aggregate([
       { $match: { status: "Cancelled" } },
       { $group: { _id: null, totalRefunds: { $sum: "$total" } } },
@@ -134,32 +134,7 @@ const topSalesReport = async (req, res) => {
   }
 };
 
-//sales report
-// const salesReport = async (req, res) => {
-//   try {
-//     const salesReport = await Order.find(
-//       {},
-//       {
-//         orderId: 1,
-//         userName: 1,
-//         status: 1,
-//         payment_method: 1,
-//         date: { $substr: ["$date", 0, 10] },
-//         total: 1,
-//       }
-//     ).sort({ total: 1 }).lean();
-//     const total = await Order.aggregate([
-//       { $group: { _id: null, total: { $sum: "$total" } } },
-//     ]);
-//     console.log(total);
-//     res.render("sales/sales-report", {
-//       salesReport: salesReport,
-//       total: total[0].total,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+
 const salesReport = async (req, res) => {
   try {
     let { fromdate, todate } = req?.query ?? {};
@@ -223,7 +198,7 @@ const revenueReport = async (req, res) => {
       },
       { $sort: { _id: -1 } },
     ]);
-    console.log(yearWiseRevenue);
+    
     const categoryRevenue = await Order.aggregate([
       { $unwind: "$product" },
       {
@@ -262,7 +237,7 @@ const revenueReport = async (req, res) => {
         }
       });
     });
-    console.log(categoryRevenue)
+    
     categories.forEach((item) => {
       if (!item.total) {
         item.total = 0;
@@ -494,6 +469,7 @@ const blockUser = async (req, res) => {
             { _id: req.params.userId },
             { $set: { status: false } }
           );
+          delete req.session.user;
         } else {
           const user = await User.findOneAndUpdate(
             { _id: req.params.userId },
@@ -520,6 +496,7 @@ const ordersList = async (req, res) => {
   const ordersList = await Order.find({}).sort({ date: -1 }).lean();
   ordersList.forEach((item, i) => {
     item.status == "Cancelled" ? (item.cancelStatus = "yes") : "";
+    item.cancelStatus = item.status == "Cancelled" || item.status == "Delivered" ? "yes" : "";
     item.date = moment(item.date).format("Do MMM YYYY");
   });
   res.render("order/orders", { title: "Orders", ordersList: ordersList });

@@ -36,7 +36,9 @@
                  <button type="submit" class="btn btn-default btn btn-outline-primary d-block  "">Search</button> 
               </div>
               </form>
+              
               <div class="navbar-toolbar d-flex justify-content-between flex-shrink-1 align-items-center">
+                <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-user"></i></div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"><span class="navbar-toggler-icon"></span></button><a class="navbar-tool navbar-stuck-toggler" href="#"><span class="navbar-tool-tooltip">Expand menu</span>
                               {{#if headerData.user}}
         <div class="col-md-6 row align-items-center flex-grow-1">
@@ -47,16 +49,16 @@
         </div>
         {{else}}
         <div class="row align-items-center">
-          <a href="/user/signup"><span class="small text-muted">New User, Signup</span></a>
+          <a href="/user/signup"><span class="small text-muted">New User?!, Signup</span></a>
           <a href="/user/signin" class="small">Hello,Sign in</a></span>
         </div>
         {{/if}}
-                  {{!-- <div class="navbar-tool-icon-box w-50"><i class="navbar-tool-icon ci-menu"></i></div></a><a class="navbar-tool d-none d-lg-flex" href="account-wishlist.html"><span class="navbar-tool-tooltip">Wishlist</span> --}}
-                  <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-heart"></i></div></a><a class="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="#signin-modal" data-bs-toggle="modal"> 
+                   {{!-- <div class="navbar-tool-icon-box w-50"><i class="navbar-tool-icon ci-menu"></i></div></a><a class="navbar-tool d-none d-lg-flex" href="account-wishlist.html"><span class="navbar-tool-tooltip">Wishlist</span>
+                  <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-heart"></i></div></a><a class="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="#signin-modal" data-bs-toggle="modal">  --}}
                    
                   
                 <div class="navbar-tool dropdown ms-3">
-                  <a class="navbar-tool-icon-box bg-secondary dropdown-toggle" href="">
+                  <a class="navbar-tool-icon-box bg-secondary dropdown-toggle" href="/cart/view">
                     <span class="navbar-tool-label">
                       {{#if cartCount}}
                     {{#each cartCount}}
@@ -132,15 +134,15 @@
                           <li><a class="dropdown-item" href="/profile-settings">Profile Settings</a></li>
                           <li><a class="dropdown-item" href="/profile-address">Account Addresses</a></li>
                           
-                          <li><a class="dropdown-item" href="account-wishlist.html">Wishlist</a></li>
+                          {{!-- <li><a class="dropdown-item" href="account-wishlist.html">Wishlist</a></li> --}}
                           <li><a class="dropdown-item" href="/wallet">Wallet</a></li>
                           
                         </ul>
                       </li>
                       
                      
-                      <li><a class="dropdown-item" href="/user/signin">Sign In / Sign Up</a></li>
-                      <li><a class="dropdown-item" href="/user/forgot-password">Password Recovery</a></li>
+                      
+                      {{!-- <li><a class="dropdown-item" href="/user/forgot-password">Password Recovery</a></li> --}}
                     </ul>
                   </li>
                   

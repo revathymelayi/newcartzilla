@@ -40,8 +40,8 @@
         </div>
          {{#if items}}
                 <div class="alert alert-danger p-2" role="alert">
-                You’ve got FREE delivery. Start
-                    <a href="#!" class="alert-link">checkout now!</a>
+                You’ve got FREE delivery.Please Click On proceed-checkout!!
+                    
                 </div>
             {{else}}
                 <div class="alert alert-danger p-2" role="alert">
@@ -66,7 +66,7 @@
                 /></a>
               <div class="pt-2">
                 <h3 class="product-title fs-base mb-2"><a
-                    href="shop-single-v1.html"
+                    href="/product/{{name}}/{{_id}}"
                   >{{name}}</a></h3>
                 
                 <div  class="fs-lg text-accent pt-2 price">
@@ -78,12 +78,13 @@
               </div>
             </div>
             <div
-              class="pt-2 pt-sm-0 ps-sm-3 mx-auto mx-sm-0 text-center text-sm-start"
-              style="max-width: 9rem;"
+              class=""
+              style=""
             >
-              <label class="form-label" for="quantity">Quantity</label>
+              {{!-- <label class="form-label" for="quantity">Quantity</label> --}}
+               <a class="btn btn-sm" onclick="document.getElementById('{{_id}}').value-- ;validateData('{{_id}}')">-</a>
               <input
-                class="form-control"
+                class="form-control-sm"
                 type="number"
                 id="{{_id}}"
                 min="1" 
@@ -91,8 +92,9 @@
                 pattern="{{_id}}"
                 max="{{unit}}"
                 value="1"
-                onchange="validateData('{{_id}}')"
+                onchange="validateData('{{_id}}')" readonly=""
               />
+               <a class="btn btn-sm" onclick="document.getElementById('{{_id}}').value++ ;validateData('{{_id}}')">+</a> 
               <a
                 class="btn btn-link px-0 text-danger"
                 onclick="removeItem('{{_id}}')"
@@ -195,6 +197,10 @@
              const total=document.getElementById('total')
              if(Number(element.value) > Number(element.max))
               element.value=element.max
+
+             if(Number(element.value) < Number(element.min))
+              element.value=element.min
+
              
              const rate=priceText.innerHTML
              priceText.innerHTML=Number(price.innerHTML)*Number(element.value)

@@ -6,18 +6,15 @@ const moment = require("moment");
 const Coupon = require("../models/couponModel");
 const Invoice = require("../models/invoiceModel");
 
-
 const isLog = require("../helper/isLog");
 const { ObjectId } = require("mongodb");
 const categoryModel = require("../models/categoryModel");
 
 /* ------------------------------- Home ------------------------------ */
 
-const userHome = async (req, res,next) => {
- 
+const userHome = async (req, res, next) => {
   try {
     const user = await isLog(req.session.user);
-
     const products = await Product.aggregate([
       { $match: { status: true } },
       {
@@ -29,7 +26,6 @@ const userHome = async (req, res,next) => {
         },
       },
     ]);
-
     res.render("home", {
       title: "Cartzilla- Home",
       headerData: user,
@@ -37,14 +33,13 @@ const userHome = async (req, res,next) => {
       products: products,
       cartCount: user.cartCount,
     });
-    
   } catch (error) {
     next(error);
   }
 };
 
 /* ------------------------------- Serach products------------------------------ */
-const searchProducts = async (req, res) => {
+const searchProducts = async (req, res,next) => {
   try {
     const search = req.body.search;
     const showProduct = await Product.aggregate([
@@ -62,55 +57,58 @@ const searchProducts = async (req, res) => {
       products: showProduct,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 /* ------------------------------- show products ------------------------------ */
-const showProduct= async(req,res)=>{
-try{
-  const categoryProducts = await Product.find({ category_id:req.params.id }).lean();
-  console.log(categoryProducts)
-  const categories = await Category.find({ status: true }).lean();
-  res.render('product',{
-    categoryProducts: categoryProducts,
-    categories: categories,
-  })
+const showProduct = async (req, res) => {
+  try {
+    const categoryProducts = await Product.find({
+      category_id: req.params.id,
+    }).lean();
 
-}
-catch(error){
-console.log(error)
-}
-}
-
-/* ------------------------------- Product details ------------------------------ */
-const productDetails = async (req, res) => {
-  const products = await Product.aggregate([
-    { $match: { name: req.params.productName } },
-    {
-      $lookup: {
-        from: "categories",
-        localField: "category_id",
-        foreignField: "_id",
-        as: "category",
-      },
-    },
-  ]);
-  const user = await isLog(req.session.user);
-  res.render("productDetails", {
-    title: "Cartzilla- Product Deatails",
-    categories: user.categories,
-    headerData: user,
-    products: products,
-    cartCount: user.cartCount,
-  });
+    const categories = await Category.find({ status: true }).lean();
+    res.render("product", {
+      categoryProducts: categoryProducts,
+      categories: categories,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
+/* ------------------------------- Product details ------------------------------ */
+const productDetails = async (req, res,next) => {
+  try{
+    const products = await Product.aggregate([
+      { $match: { name: req.params.productName } },
+      {
+        $lookup: {
+          from: "categories",
+          localField: "category_id",
+          foreignField: "_id",
+          as: "category",
+        },
+      },
+    ]);
+    const user = await isLog(req.session.user);
+    res.render("productDetails", {
+      title: "Cartzilla- Product Deatails",
+      categories: user.categories,
+      headerData: user,
+      products: products,
+      cartCount: user.cartCount,
+    });
+  }
+  catch(error){
+    next(error)
+  }
+ };
+
 /* ------------------------------- Add to cart ------------------------------ */
-const addToCart = async (req, res) => {
+const addToCart = async (req, res,next) => {
   try {
-   
     if (req.session.user) {
-      
       const addProductToCart = await User.updateOne(
         { email: req.session.user },
         {
@@ -124,12 +122,12 @@ const addToCart = async (req, res) => {
       res.json("error");
     }
   } catch (error) {
-    console.log(error.message);
+    next(error)
   }
 };
 
 /* ------------------------------- Remove item from cart ------------------------------ */
-const removeItems = async (req, res) => {
+const removeItems = async (req, res,next) => {
   try {
     const result = await User.findOneAndUpdate(
       { email: req.session.user },
@@ -142,7 +140,7 @@ const removeItems = async (req, res) => {
     res.json("success");
   } catch (error) {
     res.json("some thing went wrong");
-    console.log(error.message);
+    next(error);
   }
 };
 
@@ -171,7 +169,7 @@ const showCart = async (req, res) => {
       },
     ]);
     const items = userCartData[0].Products;
-   let btn=  items.length >=1 ? true : false
+    let btn = items.length >= 1 ? true : false;
     let subtotal = 0;
     items.forEach((item) => {
       subtotal = subtotal + item.price;
@@ -183,7 +181,7 @@ const showCart = async (req, res) => {
       items,
       subtotal: subtotal,
       cartCount: user.cartCount,
-      btn:btn
+      btn: btn,
     });
   } catch (error) {
     console.log(error.message);
@@ -197,8 +195,6 @@ let Global_addressid;
 let Global_total;
 let Global_couponAmount;
 let Global_actualAmount;
-
-
 
 /* ------------------------------- Checkout  ------------------------------ */
 const checkoutData = async (req, res) => {
@@ -406,8 +402,6 @@ const paymentGate = async (req, res) => {
 
 /* ------------------------------- Redeem coupon ------------------------------ */
 
-
-
 const redeemCoupon = async (req, res) => {
   const user = await User.findOne({ email: req.session.user }, { _id: 1 });
   const coupon = await Coupon.findOne({ code: req.body.coupon });
@@ -427,10 +421,13 @@ const redeemCoupon = async (req, res) => {
 /* ------------------------------- Orders ------------------------------ */
 const orders = async (req, res) => {
   const user = await isLog(req.session.user);
-  const ordersList = await Order.find({ userId: user.user._id }).sort({ date: -1 }).lean();
+  const ordersList = await Order.find({ userId: user.user._id })
+    .sort({ date: -1 })
+    .lean();
   let date = moment().format("MMMM Do YYYY, h:mm:ss a");
   ordersList.forEach((item, i) => {
     item.status == "Cancelled" ? (item.cancelStatus = "yes") : "";
+    item.cancelStatus = item.status == "Cancelled" || item.status == "Delivered" ? "yes" : "";
     item.date = moment(item.date).format("Do MMMM YYYY");
     item.totalPrice = item.product.reduce((prev, obj) => {
       obj.total = obj.amount * obj.quantity;
@@ -481,7 +478,7 @@ const wallet = async (req, res) => {
     const walletTransaction = await Order.find({
       $and: [{ userId: userWallet[0]._id }, { status: "Cancelled" }],
     }).lean();
-   
+
     walletTransaction.forEach((item) => {
       item.date = moment(item.date).format("Do MMMM YYYY");
     });
@@ -489,20 +486,21 @@ const wallet = async (req, res) => {
       wallet: true,
       userWallet: userWallet,
       walletTransaction: walletTransaction,
-      
     });
-  } catch (error) {}
+  } catch (error) {
+    next(error)
+  }
 };
 
 /* ------------------------------- Order details ------------------------------ */
 
-const orderDetails = async (req, res) => {
+const orderDetails = async (req, res,next) => {
   const user = await isLog(req.session.user);
   try {
-    let invoice= true;
+    let invoice = true;
     const order = await Order.findOne({ _id: req.params.id }).lean();
-    if(order.status != 'Delivered'){
-      invoice = false
+    if (order.status != "Delivered") {
+      invoice = false;
     }
     const products = order.product;
     const date = moment(order.date).format("Do MMMM YYYY");
@@ -510,6 +508,7 @@ const orderDetails = async (req, res) => {
       { "address.id": order.addressId },
       { _id: 0, address: { $elemMatch: { id: order.addressId } } }
     ).lean();
+    
     res.render("orderDetails", {
       orderDetails: order,
       products: products,
@@ -518,18 +517,18 @@ const orderDetails = async (req, res) => {
       categories: user.categories,
       headerData: user,
       cartCount: user.cartCount,
-      invoice:invoice,
+      invoice: invoice,
       categories: user.categories,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
 //profile
 
 /* ------------------------------- profile Settings ------------------------------ */
-const profileSettings = async (req, res) => {
+const profileSettings = async (req, res,next) => {
   try {
     const user = await isLog(req.session.user);
     res.render("profile-settings", {
@@ -539,11 +538,12 @@ const profileSettings = async (req, res) => {
       message: "",
       cartCount: user.cartCount,
     });
-  } catch {
-    console.log(error);
+    
+  } catch (error){
+    next(error);
   }
 };
-const updateProfileSettings = async (req, res) => {
+const updateProfileSettings = async (req, res,next) => {
   try {
     const updateDetails = await User.findOneAndUpdate(
       { email: req.body.email },
@@ -565,13 +565,13 @@ const updateProfileSettings = async (req, res) => {
         cartCount: user.cartCount,
       });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
 /* ------------------------------- Address ------------------------------ */
 const profileAddresses = async (req, res) => {
-  const user = await isLog(req.session.user);
+  try{const user = await isLog(req.session.user);
   const address = await User.find({ email: req.session.user }).lean();
   res.render("address", {
     address: true,
@@ -581,10 +581,14 @@ const profileAddresses = async (req, res) => {
 
     userAddress: address[0].address,
   });
+}
+catch(error){
+  next(error)
+}
 };
 
 /* ------------------------------- Add address ------------------------------ */
-const addAddress = async (req, res) => {
+const addAddress = async (req, res,next) => {
   let ts = Date.now();
   const id = Math.floor(ts / 1000);
   try {
@@ -609,19 +613,17 @@ const addAddress = async (req, res) => {
     );
     res.redirect("/profile-address");
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
 /* ------------------------------- Delete Address------------------------------ */
-const deleteAddress = async (req, res) => {
+const deleteAddress = async (req, res,next) => {
   try {
     const deleteAddress = await User.updateOne(
       {
-        $and: [
-          { email: req.session.user },
-          { address: { $elemMatch: { id: req.params.id } } },
-        ],
+        email: req.session.user,
+        address: { $elemMatch: { id: req.params.id } },
       },
       {
         $pull: {
@@ -629,23 +631,76 @@ const deleteAddress = async (req, res) => {
         },
       }
     );
-    res.redirect("/profile-address");
+    if (deleteAddress) res.json("success");
+  } catch (error) {
+    next(error)
+  }
+};
+/* ------------------------------- Edit Address------------------------------ */
+const editAddress = async (req, res) => {
+
+  const address = await User.find(
+    { "address.id": req.params.id },
+    { _id: 0, address: { $elemMatch: { id: req.params.id } } }
+  );
+
+  res.json(address[0]);
+  
+};
+
+const updateAddress = async (req, res) => {
+  console.log(9999)
+  try {
+    const {
+      firstName,
+      lastName,
+      address1,
+      city,
+      state,
+      country,
+      zipCode,
+      addrname,
+    } = req.body;
+    
+    const id = req.params.id;
+    const update = await User.updateOne(
+      { email: req.session.user, "address.id": req.params.id },
+      {
+        $set: {
+          "address.$": {
+            id,
+            firstName,
+            lastName,
+            address1,
+            city,
+            state,
+            country,
+            zipCode,
+            addrname,
+          },
+        },
+      }
+      
+    );
+    if (update) res.json("success");
   } catch (error) {
     console.log(error);
   }
 };
 /* ------------------------------- Invoice ------------------------------ */
 const invoice = async (req, res) => {
+  console.log(2345)
   try {
     const order = await Order.findOne({ _id: req.params.orderId }).lean();
-    const products = order.product
-    const invoice = await Invoice.invoice.findOne({orderId:req.params.orderId})
-    //  const invoiceDate = moment(invoice.date).format("Do MMMM YYYY");
+    const products = order.product;
+   
+    
+    
     res.json({
-      products :products,
-      invoice :invoice,
-      // invoiceDate:invoiceDate,
-    })
+      products: products,
+      
+      
+    });
   } catch (error) {
     console.log(error);
   }
@@ -674,6 +729,8 @@ module.exports = {
   profileAddresses,
   addAddress,
   deleteAddress,
+  editAddress,
+  updateAddress,
   addToCart,
   removeItems,
   checkoutData,

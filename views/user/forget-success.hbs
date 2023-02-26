@@ -1,0 +1,32 @@
+ <div class="container py-4 py-lg-5 my-4">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 col-md-10">
+            <h2 class="h3 mb-4">Reset password</h2>
+            <form action="" method="post">
+
+
+      <div class="form-floating">
+        <div class="d-flex justify-content-between">
+          <h6 class="st">PASSWORD</h6>
+        </div>
+
+        <input
+          type="password"
+          class="form-control shadow-sm"
+          name="password"
+          id="floatingPassword"
+          placeholder="Password"
+        />
+        <br />
+        {{! <label for="floatingPassword">Password</label> }}
+        <button class="btn btn-sm btn-light shadow-sm st" type="submit">Reset PAssword</button>
+        <br /><br />
+      </div>
+
+      <div>
+        <input type="hidden" name="user_id" value="{{user_id}}">
+      </div>
+    </form>
+            </div>
+          </div>
+        </div>

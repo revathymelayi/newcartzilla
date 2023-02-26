@@ -168,7 +168,9 @@
                               {{#each address}}
                                   <li id="name">{{firstName}} {{lastName}}</li>
                                   <li id="address">{{address1}},{{address2}}</li>
-                                  <li id="place">{{city}} ,{{state}},{{country}} ,{{zipCode}}</li>
+                                  <li id="place">{{zipCode}}</li>
+                                  <li id="city">{{city}}</li>
+                                  <li id="state">{{state}}</li>
                               {{/each}}
                           </ul>
                       </div>
@@ -176,23 +178,7 @@
                   </div>     
               </div>      
            
-            <!-- Pagination-->
-            <nav class="d-flex justify-content-between pt-2" aria-label="Page navigation">
-              <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#"><i class="ci-arrow-left me-2"></i>Prev</a></li>
-              </ul>
-              <ul class="pagination">
-                <li class="page-item d-sm-none"><span class="page-link page-link-static">1 / 5</span></li>
-                <li class="page-item active d-none d-sm-block" aria-current="page"><span class="page-link">1<span class="visually-hidden">(current)</span></span></li>
-                <li class="page-item d-none d-sm-block"><a class="page-link" href="#">2</a></li>
-                <li class="page-item d-none d-sm-block"><a class="page-link" href="#">3</a></li>
-                <li class="page-item d-none d-sm-block"><a class="page-link" href="#">4</a></li>
-                <li class="page-item d-none d-sm-block"><a class="page-link" href="#">5</a></li>
-              </ul>
-              <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#" aria-label="Next">Next<i class="ci-arrow-right ms-2"></i></a></li>
-              </ul>
-            </nav>
+           
           </section>
         </div>
       </div>
@@ -200,67 +186,90 @@
 <script>
     async function downloadInvoice(){
       const name= document.getElementById('name').innerText
+      
       const address= document.getElementById('address').innerText
+      
       const place= document.getElementById('place').innerText
+      const city= document.getElementById('city').innerText
+      const state= document.getElementById('state').innerText
+    
       const orderId= document.getElementById('orderId').value
+    
       const date= document.getElementById('date').innerText
-      const total= document.getElementById('total').innerText
-      const coupon= document.getElementById('coupon').innerText
-      const subtotal= document.getElementById('actual').innerText
 
+      const total= document.getElementById('total').innerText
+      
+      const coupon= document.getElementById('coupon').innerText
+      
+      const subtotal= document.getElementById('actual').innerText
        let response = await fetch('/download/invoice/'+orderId, {
           method: 'put',
       });
         let result = await response.json();
-        console.log(result)
         const productArray = result.products.map((item)=>{
           return {
             quantity: item.quantity,
             description: item.name,
-            price: item.price
+            price: item.amount
           }
         })
-         {{!-- const data = {
-          "currency": "INR",
-          "marginTop": 25,
-          "marginRight": 25,  
-          "marginLeft": 25,
-          "marginBottom": 25,
-        //"logoExtension": "png", //only when logo is base64
+        
+
+      const data = {
+          
+         
+          "images": {
+              // The logo on top of your invoice
+               {{!-- "logo": "https://public.easyinvoice.cloud/img/logo_en_original.png",  --}}
+              // The invoice background
+              {{!-- "background": "https://public.easyinvoice.cloud/img/watermark-draft.jpg" --}}
+          },
+          // Your own data
           "sender": {
               "company": "Cartzilla",
-              "address": "MG Road, Bangalore East",
-              "zip": "560001",
-              "city": "karnataka, Banglore",
+              "address":  "Indiranagar, Bangalore North",
+              "zip": "560038",
+              "city": "Bangalore",
               "country": "India"
+             
           },
+          // Your recipient
           "client": {
               "company": name,
               "address": address,
-              "place": place,
+              "zip": place,
+              "city":city ,
+              "country": state,
+             
           },
           "information": {
               // Invoice number
-              "number": 12345,
+              "number": "CARTZ-4571",
               // Invoice data
-              "date": 10/02/23,
-              // Invoice due date
+              "date": date,
+              
           },
-          "translate": {
-            "subtotal": subtotal, // Defaults to 'Subtotal'
-            "product-total": coupon, // Defaults to 'Total'
-            "total": total // Defaults to 'Total'
+          
+           "products": productArray,
+          // The message you would like to display on the bottom of your invoice
+          "bottom-notice": "Kindly pay your invoice within 15 days.",
+          // Settings to customize your invoice
+          "settings": {
+              "currency": "INR", // See documentation 'Locales and Currency' for more info. Leave empty for no currency.
+              
+              // "tax-notation": "gst", // Defaults to 'vat'
+               "margin-top": 25, // Defaults to '25'
+               "margin-right": 25, // Defaults to '25'
+               "margin-left": 25, // Defaults to '25'
+               "margin-bottom": 25, // Defaults to '25'
+              
           },
-          "orderId": "1234",
-          "orderDate": date,
-          "products": productArray,
-          "bottomNotice": "Kindly pay your invoice within 15 days."
-        };  --}}
-        easyinvoice.createInvoice({}, function (result) {
-            // The response will contain a base64 encoded PDF file
-            console.log('PDF base64 string: ', result.pdf);
-            easyinvoice.download("invoice.pdf")
-        });
+         
+      };
+      easyinvoice.createInvoice(data, function (result) {
+          easyinvoice.download('myInvoice.pdf', result.pdf);
+          
+      });
     }
 </script>
 

@@ -125,8 +125,8 @@
 <script>
 async function update(id) {
   
-    var select = document.getElementById('status_'+id);
-    var option = select.options[select.selectedIndex];
+    let select = document.getElementById('status_'+id);
+    let option = select.options[select.selectedIndex];
     const data = {
         status: option.value
     }

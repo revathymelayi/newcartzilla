@@ -209,7 +209,7 @@
     const actualAmount=document.getElementById('actualAmount').value
     const total=document.getElementById('totalPricecheckout').innerText
     const couponAmount = document.getElementById('coupon').innerText
-    if(addressid.length==1 || paymentgateway.length==1){
+    if(addressid.length==1 && paymentgateway.length==1){
       let data={
       productid:productid,
       price:price,
