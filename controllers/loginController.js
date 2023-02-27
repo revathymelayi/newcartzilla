@@ -225,9 +225,7 @@ const sendResetPasswordMail = async (name, email, token) => {
   }
 };
 
-const err = async (req, res) => {
-  // res.render("404", { message: "token is invalid" });
-};
+
 const forgetSuccess = async (req, res) => {
   try {
     const token = req.query.token;
@@ -265,7 +263,7 @@ module.exports = {
   authenticate,
   passwordRecovery,
   sendResetPasswordMail,
-  err,
+
   passwordVerify,
   forgetSuccess,
   resetPassword,

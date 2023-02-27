@@ -32,6 +32,6 @@ logRoute.get("/forgot-password", loginController.passwordRecovery);
 logRoute.post("/forgot-password", loginController.passwordVerify);
 logRoute.get("/forget-success", loginController.forgetSuccess);
 logRoute.post("/forget-success", loginController.resetPassword);
-logRoute.get("*", loginController.err);
+
 
 module.exports = logRoute;
