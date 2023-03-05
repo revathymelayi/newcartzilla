@@ -62,8 +62,7 @@ userRoute.get('/wallet',logCheck.isUser,userController.wallet)
 //Invoice
 userRoute.put('/download/invoice/:orderId',logCheck.isUser,userController.invoice)
 
-//Checkout
-// userRoute.get("/checkout", logCheck.isUser, userController.checkoutDetails);
+
 
 //Logout
 userRoute.get("/signout", userController.logout);

@@ -37,7 +37,7 @@ adminRoute.post('/add/product',cpUpload,adminController.addProduct)
 adminRoute.get('/product/edit/:productId',logCheck.isAdmin,adminController.editProductView)
 adminRoute.post('/product/edit/:productId',cpUpload,adminController.editProduct)
 adminRoute.put('/product/delete/:productId',adminController.deleteProduct)
-
+adminRoute.put("/delete/product/image", adminController.deleteProductImage);
 
 //Orders
 adminRoute.get('/orders',logCheck.isAdmin,adminController.ordersList)

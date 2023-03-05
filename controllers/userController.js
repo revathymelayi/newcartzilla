@@ -61,7 +61,7 @@ const searchProducts = async (req, res,next) => {
   }
 };
 /* ------------------------------- show products ------------------------------ */
-const showProduct = async (req, res) => {
+const showProduct = async (req, res,next) => {
   try {
     const categoryProducts = await Product.find({
       category_id: req.params.id,
@@ -145,7 +145,7 @@ const removeItems = async (req, res,next) => {
 };
 
 /* ------------------------------- Show cart ------------------------------ */
-const showCart = async (req, res) => {
+const showCart = async (req, res,next) => {
   try {
     const user = await isLog(req.session.user);
 
@@ -184,7 +184,7 @@ const showCart = async (req, res) => {
       btn: btn,
     });
   } catch (error) {
-    console.log(error.message);
+    next(error);
   }
 };
 
@@ -197,7 +197,7 @@ let Global_couponAmount;
 let Global_actualAmount;
 
 /* ------------------------------- Checkout  ------------------------------ */
-const checkoutData = async (req, res) => {
+const checkoutData = async (req, res,next) => {
   try {
     const user = await isLog(req.session.user);
     const address = await User.find({ email: req.session.user }).lean();
@@ -234,13 +234,13 @@ const checkoutData = async (req, res) => {
       userAddress: address[0].address,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
 /* ------------------------------- place Order ------------------------------ */
 
-const placeOrder = async (req, res) => {
+const placeOrder = async (req, res,next) => {
   try {
     const user = await isLog(req.session.user);
     let validator = false;
@@ -378,13 +378,13 @@ const placeOrder = async (req, res) => {
     Global_couponAmount = "";
     Global_actualAmount = "";
     res.json("try again");
-    console.log(error);
+    next(error);
   }
 };
 
 /* ------------------------------- Paypal ------------------------------ */
 
-const paymentGate = async (req, res) => {
+const paymentGate = async (req, res,next) => {
   const user = await isLog(req.session.user);
 
   let total = 0;
@@ -396,7 +396,7 @@ const paymentGate = async (req, res) => {
   try {
     res.render("payment-paypal", { total });
   } catch (error) {
-    console.log(error.message);
+    next(error);
   }
 };
 
@@ -469,7 +469,7 @@ const cancelOrder = async (req, res) => {
 };
 
 //wallet
-const wallet = async (req, res) => {
+const wallet = async (req, res,next) => {
   try {
     const userWallet = await User.find(
       { email: req.session.user },
@@ -570,7 +570,7 @@ const updateProfileSettings = async (req, res,next) => {
 };
 
 /* ------------------------------- Address ------------------------------ */
-const profileAddresses = async (req, res) => {
+const profileAddresses = async (req, res,next) => {
   try{const user = await isLog(req.session.user);
   const address = await User.find({ email: req.session.user }).lean();
   res.render("address", {
@@ -649,7 +649,7 @@ const editAddress = async (req, res) => {
 };
 
 const updateAddress = async (req, res) => {
-  console.log(9999)
+  
   try {
     const {
       firstName,
@@ -688,8 +688,8 @@ const updateAddress = async (req, res) => {
   }
 };
 /* ------------------------------- Invoice ------------------------------ */
-const invoice = async (req, res) => {
-  console.log(2345)
+const invoice = async (req, res,next) => {
+  
   try {
     const order = await Order.findOne({ _id: req.params.orderId }).lean();
     const products = order.product;
@@ -702,7 +702,7 @@ const invoice = async (req, res) => {
       
     });
   } catch (error) {
-    console.log(error);
+   next(error);
   }
 };
 
@@ -713,7 +713,7 @@ const logout = async (req, res, next) => {
     delete req.session.user;
     res.redirect("/user/signin");
   } catch (error) {
-    console.log(error.message);
+    next(error);
   }
 };
 

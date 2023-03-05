@@ -450,6 +450,22 @@ const deleteProduct = async (req, res) => {
     else res.send("error");
   } catch (error) {}
 };
+
+//Delete product image
+const deleteProductImage = async (req, res, next) => {
+  try {
+    const { productId, filename } = req.query;
+    const productImg = await Product.updateOne(
+      { _id: productId },
+      { $pull: { images: filename } }
+    );
+    if (productImg) {
+      res.json("success");
+    }
+  } catch (error) {
+    next(error);
+  }
+};
 //users
 const users = async (req, res) => {
   try {
@@ -672,6 +688,7 @@ module.exports = {
   editProductView,
   editProduct,
   deleteProduct,
+  deleteProductImage,
   users,
   blockUser,
   deleteUser,

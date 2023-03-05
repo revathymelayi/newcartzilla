@@ -69,7 +69,7 @@
                             <div class="col-sm-9">
                                 <div class="row row-cols-xl-8 row-cols-md-8 row-cols-sm-3 row-cols-2 g-sm-3 g-2 media-library-sec ratio_square">
                                 {{#each productDetails.images}}
-                                    <div>
+                                    <div id="productImage_{{this}}">
                                         <div class="library-box">
                                             <div>
                                                 <img src="/admin/images/products/{{this}}"
@@ -80,11 +80,11 @@
                                                     data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="ri-more-fill"></i>
                                                 </a>
-
                                                 <ul class="dropdown-menu dropdown-menu-end"
                                                     aria-labelledby="dropdownMenuLink">
-                                                    <li onclick="deleteImage(this)"><a class="dropdown-item d-flex align-items-center"
-                                                            href="#"><i class="ri-delete-bin-line me-2"></i>Delete</a>
+                                                    <li onclick="deleteImage(this,'{{../productDetails._id}}')">
+                                                    <a class="dropdown-item d-flex align-items-center" style="cursor: pointer;"
+                                                            ><i class="ri-delete-bin-line me-2"></i>Delete</a>
                                                     </li>
                                                     </li>
                                                 </ul>
@@ -92,9 +92,7 @@
                                         </div>
                                     </div>
                                 {{/each}}
-                                </div>
-                                    {{!-- <img src="/admin/images/products/{{this}}" alt="" id="loadImage" style="height: 100px; margin-top: 20px; margin-bottom: 20px;"> --}}
-                                
+                                </div>                                
                                 <input class="form-control form-choose" type="file" id="formFile" name="product_images" multiple>
                             </div>
                         </div>
@@ -146,10 +144,21 @@
 		readURL(this,'product_images');
 	});
 
-    function deleteImage(image){
-         let fullPath = document.getElementById("listImage").src;
-         alert(fullPath)
-        let filename = fullPath.split("/").pop();
-       
+     async function deleteImage(image,productId){
+        const fullPath = document.getElementById("listImage").src;
+        const filename = fullPath.split("/").pop();
+        const deleteImg = await fetch('/admin/delete/product/image?productId='+productId+'&filename='+filename,{
+            method :'put',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        let response = await deleteImg.json();
+        console.log(response)
+        if(response =="success"){
+            const element = document.getElementById("productImage_"+filename);
+            element.remove();
+        }
+        
     }
 </script>

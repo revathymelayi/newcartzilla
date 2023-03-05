@@ -138,7 +138,7 @@ const authenticate = async (req, res) => {
       } else {
         res.render("signin", { err: "Please verify your email " });
       }
-    } else res.render("signin", { err: "Incorrect email" });
+    } else res.render("signin", { err: "Sorry...User is blocked" });
   } catch (error) {
     console.log("success", error);
   }
