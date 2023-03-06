@@ -146,13 +146,7 @@ const authenticate = async (req, res) => {
 
 const passwordRecovery = async (req, res) => {
   try {
-    const token = req.query.token;
-    const tokenData = await User.findOne({ token: token });
-    if (tokenData) {
-      res.render("forgotPassword", { user_id: tokenData._id });
-    } else {
-      //  res.render("404", { message: "token is invalid" });
-    }
+    res.render("forgotPassword", { user_id: tokenData._id });
   } catch (error) {
     console.log(error.message);
   }
@@ -224,7 +218,6 @@ const sendResetPasswordMail = async (name, email, token) => {
     console.log(error.message);
   }
 };
-
 
 const forgetSuccess = async (req, res) => {
   try {

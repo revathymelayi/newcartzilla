@@ -6,10 +6,6 @@ const session = require("../config/session");
 userRoute.use(session);
 //Layouts
 
-
-
-
-
 const hbs = require("express-handlebars");
 userRoute.engine(
   "hbs",
@@ -30,7 +26,7 @@ userRoute.get('/category/:name/:id' , userController.showProduct)
 
 //Cart
 userRoute.get("/cart/view", logCheck.isUser, userController.showCart);
-userRoute.post( "/product/:productName/:productId", logCheck.isUser,userController.addToCart);
+userRoute.post("/product/:productName/:productId", logCheck.isUser,userController.addToCart);
 userRoute.delete("/cart/remove/:id",logCheck.isUser,userController.removeItems);
 
 //checkout
